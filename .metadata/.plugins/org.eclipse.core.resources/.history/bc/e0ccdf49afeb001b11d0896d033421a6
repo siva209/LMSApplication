@@ -1,0 +1,30 @@
+package com.bridgelabz.lms.exception;
+
+public class CandidateRegistrationException {
+	
+
+@Data
+@NoArgsConstructor
+@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+public class UserRegistrationException extends RuntimeException{
+	private static final long serialVersionUID = 1L;
+	private String message;
+	HttpStatus status;
+	private Object data;
+	String statusMsg;
+	public UserRegistrationException(String message, HttpStatus status, Object data, String statusMsg) {
+		super();
+		this.message = message;
+		this.status = status;
+		this.data = data;
+		this.statusMsg = statusMsg;
+	}
+	public UserRegistrationException(int i, String string) {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+}
+
+
+}

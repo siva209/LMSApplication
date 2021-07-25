@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.bridgelabz.userregistration.exception.ExceptionResponse"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.userregistration.exception.CustomException"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.userregistration.model.UserEntity"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.userregistration.response.Response"/>
+</qualifiedTypeNameHistroy>

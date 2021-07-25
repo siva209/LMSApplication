@@ -1,0 +1,7 @@
+package com.bridgelabz.lms.service;
+
+public interface CandidateService {
+	ResponseDTO addUser(UserDTO userDTO) throws InvalidDetailsException;
+
+
+}

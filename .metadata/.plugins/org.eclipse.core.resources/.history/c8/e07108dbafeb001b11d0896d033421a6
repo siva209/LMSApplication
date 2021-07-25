@@ -1,0 +1,34 @@
+package com.bridgelabz.lms.service;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.repository.CandidateRepository;
+import com.bridgelabz.userregistration.jwtoperations.Jms;
+import com.bridgelabz.userregistration.jwtoperations.JwtOperations;
+
+public class CandidateServiceImpl implements CandidateService{
+	
+	
+	@Autowired
+	private BCryptPasswordEncoder pwdencoder;
+	
+	@Autowired
+	private JwtOperations jwt=new JwtOperations();
+	@Autowired
+	private Jms jms;
+	@Autowired
+	private ModelMapper modelmapper;
+
+	@Autowired
+	private CandidateRepository repository;
+	@Override
+	public ResponseDTO registerCandidate(UserDTO userDTO) throws InvalidDetailsException {
+		
+	}
+
+}

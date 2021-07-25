@@ -1,0 +1,52 @@
+package com.bridgelabz.lms.service;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.repository.CandidateRepository;
+import com.bridgelabz.lms.util.Jms;
+import com.bridgelabz.lms.util.JwtOperations;
+
+
+
+public class CandidateServiceImpl implements CandidateService{
+	
+	
+	@Autowired
+	private BCryptPasswordEncoder pwdencoder;
+	
+	@Autowired
+	private JwtOperations jwt=new JwtOperations();
+	@Autowired
+	private Jms jms;
+	@Autowired
+	private ModelMapper modelmapper;
+
+	@Autowired
+	private CandidateRepository repository;
+	@Override
+	public ResponseDTO registerCandidate(UserDTO userDTO) throws InvalidDetailsException {
+		Optional<Candidate> isUserPresent = repository.findAllByemail(userDTO.getEmail());
+		if (!isUserPresent.isPresent()) {
+			Candidate candidate = modelmapper.map(userDTO, Candidate.class);
+			candidate.setRegisteredDate(LocalDateTime.now());
+			repository.save(createUser);
+			String token = tokenutli.createToken(createUser.getId());
+			System.out.println(token);
+			String body = "http://localhost:8080/verifyemail/" + token;
+			System.out.println(body);
+			JMSUtli.sendEmail(createUser.getEmail(), "verification email for user " + createUser.getFirstName(), body);
+			return new ResponseDTO("User Successfully Added. " + "Token : " + token, userDTO);
+		} else {
+			throw new UserRegistrationException(400, "Employee already Added");
+		}
+	}
+
+	

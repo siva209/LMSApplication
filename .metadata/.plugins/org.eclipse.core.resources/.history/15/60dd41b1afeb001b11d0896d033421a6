@@ -1,0 +1,20 @@
+package com.bridgelabz.lms.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+
+public class CandidateServiceImpl implements CandidateService{
+
+	
+	@Autowired
+	
+	@Override
+	public ResponseDTO registerCandidate(UserDTO userDTO) throws InvalidDetailsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

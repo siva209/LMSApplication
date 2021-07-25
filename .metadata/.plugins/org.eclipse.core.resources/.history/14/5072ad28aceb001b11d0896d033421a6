@@ -1,0 +1,5 @@
+package com.bridgelabz.lms.model;
+
+public class Candidate {
+
+}
