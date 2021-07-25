@@ -12,6 +12,7 @@ public interface CandidateService {
 	Response registerCandidate(UserDTO dto) throws InvalidDetailsException;
 	public Candidate verify(String token);
 	public Response getAllHiredcandidates();
+	public Candidate getCandidateProfileById(Long id);
 
 
 }

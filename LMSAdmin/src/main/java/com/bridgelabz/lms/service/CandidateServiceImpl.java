@@ -22,6 +22,7 @@ import com.bridgelabz.lms.util.JwtUtil;
 
 
 
+
 @Service
 public class CandidateServiceImpl implements CandidateService{
 	
@@ -75,8 +76,12 @@ public class CandidateServiceImpl implements CandidateService{
 		long id=jwt.parseJWT(token);
 		return userrepo.getUserById(id).orElseThrow(() -> new CandidateRegistrationException("user not exists",HttpStatus.OK,id,"false"));
 	}
-	
+	@Override
+	public Candidate getCandidateProfileById(Long id) {
+		return userrepo.getCandidateProfileById(id).orElseThrow(() -> new CandidateRegistrationException("user not exists",HttpStatus.OK,id,"false"));
 	}
+	}
+
 
 
 	

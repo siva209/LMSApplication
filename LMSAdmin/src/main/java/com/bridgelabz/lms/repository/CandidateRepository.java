@@ -20,6 +20,9 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long>{
 	
 	@Query(value = "select * from candidates where id=?1",nativeQuery = true)
 	Optional<Candidate> getUserById(long id);
+
+	@Query(value = "select * from candidates where id=?1",nativeQuery = true)
+     Optional<Candidate> getCandidateProfileById(Long id);
 	
 
 }

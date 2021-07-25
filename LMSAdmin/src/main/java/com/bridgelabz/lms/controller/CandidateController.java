@@ -59,4 +59,11 @@ public class CandidateController {
 		return new ResponseEntity<Response>(new Response("welcome",userimpl.getUserById(token),200,"true"),HttpStatus.OK);
 	}
 	
+	@GetMapping("/getuserbyprofile/{id}")
+	public ResponseEntity<Response> getCandidateProfileById(@PathVariable Long id){
+	{
+		//System.out.println("Getting user with ID {}."+userId);
+		return new ResponseEntity<Response>(new Response("welcome",userimpl.getCandidateProfileById(id),200,"true"),HttpStatus.OK);
+	}
+	}
 }

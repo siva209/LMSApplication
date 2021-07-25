@@ -28,6 +28,7 @@ public class Candidate {
 	private String parentOccupation;
 	private String parentAnnualSalary;
 	private String permanentAddress;
+	private String profileImage;
 	private String folderId;
 	private String status;
 	private LocalDateTime creatorStamp;
