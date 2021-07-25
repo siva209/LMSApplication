@@ -18,7 +18,7 @@ import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.repository.CandidateRepository;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.util.Jms;
-import com.bridgelabz.lms.util.JwtOperations;
+import com.bridgelabz.lms.util.JwtUtil;
 
 
 
@@ -30,7 +30,7 @@ public class CandidateServiceImpl implements CandidateService{
 	private BCryptPasswordEncoder pwdencoder;
 	
 	@Autowired
-	private JwtOperations jwt=new JwtOperations();
+	private JwtUtil jwt=new JwtUtil();
 	@Autowired
 	private Jms jms;
 	@Autowired

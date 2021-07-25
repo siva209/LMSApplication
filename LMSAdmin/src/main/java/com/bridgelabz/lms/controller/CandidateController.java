@@ -17,7 +17,7 @@ import com.bridgelabz.lms.exception.InvalidDetailsException;
 import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.service.CandidateServiceImpl;
-import com.bridgelabz.lms.util.JwtOperations;
+import com.bridgelabz.lms.util.JwtUtil;
 
 
 @RestController
@@ -26,7 +26,7 @@ public class CandidateController {
 	private CandidateServiceImpl userimpl;
 	
 	@Autowired
-	private JwtOperations jwt;
+	private JwtUtil jwt;
 	/**
 	 * Register User : used to register the user
 	 * @param dto

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.bridgelabz.lms.model.Candidate;
-import com.bridgelabz.lms.util.JwtOperations;
+import com.bridgelabz.lms.util.JwtUtil;
 
 
 
@@ -20,9 +20,9 @@ public class AppConfig {
 		return new BCryptPasswordEncoder();
 	}
 	@Bean
-	public JwtOperations jwtoperations()
+	public JwtUtil jwtoperations()
 	{
-		return new JwtOperations();
+		return new JwtUtil();
 	}
 	@Bean
 	public Candidate candidate()
