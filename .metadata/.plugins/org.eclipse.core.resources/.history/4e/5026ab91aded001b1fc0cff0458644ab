@@ -1,0 +1,11 @@
+package com.bridgelabz.lms.model;
+
+import javax.annotation.Generated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+public class Status {
+	@Id
+	@GeneratedValue(strategy GenerationType.IDENTITY))
+
+}

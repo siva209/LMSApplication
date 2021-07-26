@@ -1,0 +1,7 @@
+package com.bridgelabz.lms.dto;
+
+@Data
+public class CandidateHiredDTO {
+	
+
+}

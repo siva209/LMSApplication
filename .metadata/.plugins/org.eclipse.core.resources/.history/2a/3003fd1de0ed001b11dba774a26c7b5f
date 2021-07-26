@@ -1,0 +1,19 @@
+package com.bridgelabz.lms.dto;
+
+public class UpdateDto {
+	private Long id;
+	private String firstName;
+	private String middleName;
+	private String lastName;
+	private String email;
+	private String mobileNum;
+	private String parentMobile;
+	private String temporaryAddress;
+	private String parentOccupation;
+	private String parentAnnualSalary;
+	private String permanentAddress;
+	private String profileImage;
+	private String folderId;
+	private String status;
+
+}

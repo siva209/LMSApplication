@@ -1,0 +1,5 @@
+package com.bridgelabz.lms.repository;
+
+public interface StatusRepository {
+
+}

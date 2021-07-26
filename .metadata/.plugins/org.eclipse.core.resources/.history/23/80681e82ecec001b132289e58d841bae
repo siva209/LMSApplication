@@ -1,0 +1,17 @@
+package com.bridgelabz.lms.service;
+
+import org.springframework.stereotype.Service;
+
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
+import com.bridgelabz.lms.model.CandidateOnboardingDetails;
+
+@Service
+public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingService{
+
+	@Override
+	public CandidateOnboardingDetails createUser(CandidateHiredDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

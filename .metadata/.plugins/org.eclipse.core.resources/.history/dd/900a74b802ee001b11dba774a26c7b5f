@@ -1,0 +1,68 @@
+package com.bridgelabz.lms.service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.CandidateRegistrationException;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.Status;
+import com.bridgelabz.lms.repository.CandidateRepository;
+import com.bridgelabz.lms.repository.StatusRepository;
+import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.util.Jms;
+import com.bridgelabz.lms.util.JwtUtil;
+
+public class IStatusServiceImpl  implements CandidateService{
+
+	
+	
+	@Autowired
+	private ModelMapper modelmapper;
+
+	@Autowired
+	private StatusRepository statusrepo;
+
+	@Override
+	public Response registerCandidate(UserDTO dto) throws InvalidDetailsException {
+		l;
+	}
+
+	@Override
+	public Candidate verify(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response getAllHiredcandidates() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Candidate getCandidateProfileById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response updateCandidate(Long id, UpdateDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteCandidateHiringById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	

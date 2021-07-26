@@ -1,0 +1,83 @@
+package com.bridgelabz.lms.model;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.bridgelabz.lms.dto.UpdateDto;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "candidates")
+public class Candidate {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	private Long id;
+	private String firstName;
+	private String middleName;
+	private String lastName;
+	private String email;
+	private String mobileNum;
+	private String parentMobile;
+	private String temporaryAddress;
+	private String parentOccupation;
+	private String parentAnnualSalary;
+	private String permanentAddress;
+	private String profileImage;
+	private String folderId;
+	private String status;
+	
+	
+	
+	
+//	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+//	@JoinColumn(name="id")
+////	private List<CandidateOnboardingDetails> onboarding;
+//	private List<Status> onboarding; 
+//	
+	private LocalDateTime creatorStamp;
+	private LocalDateTime updateStamp;
+//	private BankInfo bankInfo;
+	@Column(name = "is_verify_email ", columnDefinition = "boolean default false")
+	private boolean verifyEmail;
+	public Candidate(Long id, UpdateDto updatedto) {
+		super();
+		this.id = id;
+		this.firstName = updatedto.getFirstName();
+		this.middleName = updatedto.getMiddleName();
+		this.lastName = updatedto.getLastName();
+		this.email = updatedto.getEmail();
+		this.mobileNum = updatedto.getMobileNum();
+		this.parentMobile = updatedto.getParentMobile();
+		this.temporaryAddress = updatedto.getTemporaryAddress();
+		this.parentOccupation = updatedto.getParentOccupation();
+		this.parentAnnualSalary = updatedto.getParentAnnualSalary();
+		this.permanentAddress = updatedto.getPermanentAddress();
+		this.profileImage = updatedto.getProfileImage();
+		this.folderId = updatedto.getFolderId();
+		this.status = updatedto.getStatus();
+		this.creatorStamp = updatedto.c
+		this.updateStamp = updateStamp;
+		this.verifyEmail = verifyEmail;
+	}
+	
+	
+	
+	
+
+}
+
+
+

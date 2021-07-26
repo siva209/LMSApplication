@@ -1,0 +1,16 @@
+package com.bridgelabz.lms.dto;
+
+import lombok.Data;
+
+@Data
+public class StatusDTO {
+	String createdUser;
+	String currentStatus;
+	int id;
+	String keyText;
+	String keyType;
+	String keyValue;
+	String lastUpdatedUser;
+	String sequenceNumber;
+}
+

@@ -1,0 +1,17 @@
+package com.bridgelabz.lms.service;
+
+import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.Status;
+import com.bridgelabz.lms.response.Response;
+
+public interface IStatusService {
+	Response registerCandidate(Status dto);
+	public Status verify(String token);
+	public Response getAllHiredcandidatesStatus();
+	public Response updateCandidateStatus(Long id,Status dto);
+	public void deleteCandidateHiringById(Long id) ;
+
+}

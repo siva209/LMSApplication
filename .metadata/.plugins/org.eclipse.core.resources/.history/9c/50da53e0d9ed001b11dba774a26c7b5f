@@ -1,0 +1,39 @@
+package com.bridgelabz.lms.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
+import com.bridgelabz.lms.exception.CandidateRegistrationException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.CandidateOnboardingDetails;
+import com.bridgelabz.lms.repository.CandidateOnBoardingRepository;
+import com.bridgelabz.lms.response.Response;
+
+@Service
+public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingService{
+
+	
+	@Autowired
+	 private CandidateOnBoardingRepository candidaterepo;
+	
+	@Autowired
+	private ModelMapper modelmapper;
+	@Override
+	
+	}
+	@Override
+	public Response getAllOnBoardingcandidates() {
+		List<CandidateOnboardingDetails> isUserPresent = candidaterepo.findAll();
+		return new Response("List of HiredCandidates are",isUserPresent,200,"true");
+	}
+	@Override
+	public Response createUser(CandidateHiredDTO dto) {
+		
+	}
+}

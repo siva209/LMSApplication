@@ -1,0 +1,89 @@
+package com.bridgelabz.lms.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.StatusDTO;
+import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.CandidateRegistrationException;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.Status;
+import com.bridgelabz.lms.repository.CandidateRepository;
+import com.bridgelabz.lms.repository.StatusRepository;
+import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.util.Jms;
+import com.bridgelabz.lms.util.JwtUtil;
+
+public class IStatusServiceImpl  implements IStatusService{
+
+	
+	
+	@Autowired
+	private ModelMapper modelmapper;
+
+	@Autowired
+	private StatusRepository statusrepo;
+
+	@Override
+	public Status verify(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseDTO getAllStatus() {
+		List<Status> isUserPresent = statusrepo.findAll();
+		return new ResponseDTO("List of all Status : ", isUserPresent);
+	}
+	
+
+	@Override
+	public ResponseDTO updateCandidateStatus(Long id, Status dto) {
+		Optional<Status> isUserPresent = statusrepo.findById(dto.getId());
+		if (isUserPresent.isPresent()) {
+			isUserPresent.get().setCreateUser(dto.getCreateUser());
+			isUserPresent.get().setCurrentStatus(dto.getCurrentStatus());
+			isUserPresent.get().setKetText(dto.getKetText());
+			isUserPresent.get().setKeyType(dto.getKeyType());
+			isUserPresent.get().setKeyValue(dto.getKeyValue());
+			isUserPresent.get().setLastUpdatedUser(dto.getLastUpdatedUser());
+			isUserPresent.get().setSequenceNumber(dto.getSequenceNumber());
+			System.out.println(isUserPresent);
+			statusrepo.save(isUserPresent.get());
+			return new ResponseDTO("Status Data Successfully Updated", isUserPresent);
+		} else {
+			throw new CandidateRegistrationException(400, "Status Data not Updated");
+		}
+	}
+
+
+	@Override
+	public void deleteCandidateHiringById(Long id) {
+		Optional<Status> isUserPresent = lmsStatusRepository.findById(id);
+		if (isUserPresent.isPresent()) {
+			lmsStatusRepository.deleteById(id);
+		}else {
+			 new LMSExceptions("Status to be Delete Not found");
+		}
+	}
+		
+	}
+
+	@Override
+	public ResponseDTO registerCandidate(StatusDTO dto) {
+		Status addStatusDetails=modelmapper.map(dto, Status.class);
+		System.out.println(addStatusDetails);
+		statusrepo.save(addStatusDetails);
+		return new ResponseDTO("Added Status: ", addStatusDetails);
+	}
+}
+	

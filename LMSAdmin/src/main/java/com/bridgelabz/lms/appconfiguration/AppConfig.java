@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.util.JwtUtil;
 
 
@@ -28,6 +29,11 @@ public class AppConfig {
 	public Candidate candidate()
 	{
 		return new Candidate();
+	}
+	@Bean
+	public CandidateOnboardingDetails onboardDetails() {
+		return new CandidateOnboardingDetails();
+		
 	}
 	@Bean
 	public ModelMapper modelMapper() {

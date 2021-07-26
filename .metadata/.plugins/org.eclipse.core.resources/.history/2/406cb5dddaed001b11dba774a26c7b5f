@@ -1,0 +1,40 @@
+package com.bridgelabz.lms.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.service.CandidateOnBoardingServiceImpl;
+
+@RestController
+public class CandidateOnBoardingController {
+	@Autowired
+	private CandidateOnBoardingServiceImpl userimpl;
+	
+	@PostMapping("/registeruser")
+	@ResponseStatus(HttpStatus.CREATED)
+	
+	public ResponseEntity<Response>createUser(CandidateHiredDTO dto);(@RequestBody UserDTO dto,BindingResult result) throws InvalidDetailsException{
+		Response response=userimpl.registerCandidate(dto);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/getallOnboardingCandidates")
+	public ResponseEntity<Response> getAllHiredcandidates() {
+		Response respDTO = userimpl.getAllOnBoardingcandidates();
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
+	
+
+}

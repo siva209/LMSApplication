@@ -1,0 +1,47 @@
+package com.bridgelabz.lms.service;
+
+import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.response.Response;
+
+public class IStatusServiceImpl  implements CandidateService{
+
+	@Override
+	public Response registerCandidate(UserDTO dto) throws InvalidDetailsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Candidate verify(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response getAllHiredcandidates() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Candidate getCandidateProfileById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response updateCandidate(Long id, UpdateDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteCandidateHiringById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,25 @@
+package com.bridgelabz.lms.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.StatusDTO;
+import com.bridgelabz.lms.service.IStatusService;
+
+import io.swagger.models.Response;
+
+public class StatusController {
+	@Autowired(required = true)
+	private IStatusService lmsStatusService;
+	
+	
+	@PostMapping("/addstatus/")
+	public ResponseEntity<ResponseDTO> addingStatusDetails(@RequestBody StatusDTO dto){
+		Response respDTO = lmsStatusService.addingStatusDetails(lmsstatus)
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	
+}

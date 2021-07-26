@@ -1,0 +1,13 @@
+package com.bridgelabz.lms.dto;
+
+public class StatusDTO {
+	String createdUser;
+	String currentStatus;
+	int id;
+	String keyText;
+	String keyType;
+	String keyValue;
+	String lastUpdatedUser;
+	String sequenceNumber;
+}
+}

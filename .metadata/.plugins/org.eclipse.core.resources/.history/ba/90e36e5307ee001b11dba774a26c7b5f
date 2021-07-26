@@ -1,0 +1,40 @@
+package com.bridgelabz.lms.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.StatusDTO;
+import com.bridgelabz.lms.service.IStatusService;
+
+import io.swagger.models.Response;
+
+public class StatusController {
+	@Autowired(required = true)
+	private IStatusService lmsStatusService;
+	
+	
+	@PostMapping("/addstatusDetails/")
+	public ResponseEntity<ResponseDTO> addingStatusDetails(@RequestBody StatusDTO dto){
+		ResponseDTO respDTO = lmsStatusService.addingStatusDetails(dto);
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getstatus")
+	public ResponseEntity<ResponseDTO> getStatus() {
+		ResponseDTO respDTO = lmsStatusService.getAllStatus();
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	
+	@PutMapping("/updatestatus")
+	public ResponseEntity<ResponseDTO> updatestatus(@Valid @RequestBody StatusDTO dto) {
+		ResponseDTO respDTO = lmsStatusService.updateStatus(dto);
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	
+}

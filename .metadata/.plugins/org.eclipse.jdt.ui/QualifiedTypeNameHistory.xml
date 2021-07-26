@@ -7,4 +7,15 @@
     <fullyQualifiedTypeName name="com.bridgelabz.userregistration.model.UserEntity"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="com.bridgelabz.userregistration.response.Response"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.repository.CandidateOnBoardingRepository"/>
+    <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.model.CandidateOnboardingDetails"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.response.Response"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.dto.CandidateHiredDTO"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.service.CandidateOnBoardingServiceImpl"/>
 </qualifiedTypeNameHistroy>
