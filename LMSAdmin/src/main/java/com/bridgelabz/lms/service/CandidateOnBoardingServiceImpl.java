@@ -45,6 +45,7 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 	
   @Autowired
   private CandidateOnboardingDetails details;
+  
 	@Override
 	public Response getAllOnBoardingcandidates() {
 		List<CandidateOnboardingDetails> isPresent = candidaterepo.findAll();

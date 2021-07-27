@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 
 import com.bridgelabz.lms.model.Candidate;
 //import com.bridgelabz.lms.model.CandidateOnboardingDetails;
+import com.bridgelabz.lms.model.Status;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class Response {
 		this.statusMsg=statusMsg;
 		}
 		public Response(String string, Long id) {
+			// TODO Auto-generated constructor stub
+		}
+		public Response(String string, Status addDetails) {
 			// TODO Auto-generated constructor stub
 		}
 }

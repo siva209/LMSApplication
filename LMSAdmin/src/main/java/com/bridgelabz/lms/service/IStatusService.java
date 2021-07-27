@@ -9,7 +9,7 @@ import com.bridgelabz.lms.response.Response;
 public interface IStatusService {
 	public Response addingStatusDetails(StatusDTO dto);
 	public Response getAllStatus();
-	public Status verify(String token);
-	public Response updateCandidateStatus(Long id,UpdateStatusDto dto);
-	public void deleteCandidaStatusd(Long id) ;
+//	public Status verify(String token);
+//	public Response updateCandidateStatus(Long id,UpdateStatusDto dto);
+//	public void deleteCandidaStatusd(Long id) ;
 }

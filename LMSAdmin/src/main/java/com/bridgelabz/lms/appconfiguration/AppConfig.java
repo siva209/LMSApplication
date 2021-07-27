@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.model.CandidateOnboardingDetails;
+import com.bridgelabz.lms.model.Status;
 import com.bridgelabz.lms.util.JwtUtil;
 
 
@@ -34,6 +35,10 @@ public class AppConfig {
 	public CandidateOnboardingDetails onboardDetails() {
 		return new CandidateOnboardingDetails();
 		
+	}
+	@Bean
+	public Status statusdetails() {
+		return new  Status();
 	}
 	@Bean
 	public ModelMapper modelMapper() {

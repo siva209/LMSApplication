@@ -10,8 +10,10 @@ import com.bridgelabz.lms.model.Status;
 @Repository
 public interface StatusRepository extends JpaRepository<Status, Long>{
 
-	Optional<Status> findById(int id);
-
-	Optional<Status> isIdExists(long id);
-
+	Optional<Status> findById(Long id);
+//
+//	Optional<Status> findById(int id);
+//
+//	Optional<Status> isIdExists(long id);
+//
 }

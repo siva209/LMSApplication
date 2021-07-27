@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
-import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.service.CandidateOnBoardingServiceImpl;
 
