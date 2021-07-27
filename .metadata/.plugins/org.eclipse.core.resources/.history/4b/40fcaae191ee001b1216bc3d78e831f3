@@ -1,0 +1,30 @@
+package com.bridgelabz.lms.service;
+package com.bridgelabz.lms.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bridgelabz.lms.dto.ResponseDTO;
+import com.bridgelabz.lms.dto.StatusDTO;
+
+import com.bridgelabz.lms.exception.CandidateRegistrationException;
+
+import com.bridgelabz.lms.model.Status;
+
+import com.bridgelabz.lms.repository.StatusRepository;
+@Service
+public class StatusServiceImpl implements IStatusService {
+
+	@Autowired
+	private ModelMapper modelmapper;
+
+	@Autowired
+	private StatusRepository statusrepo;
+
+	
+	

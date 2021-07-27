@@ -12,11 +12,12 @@ public class ResponseDTO {
 		this.message = message;
 		this.data = data;
 	}
-	public ResponseDTO(int i, String string, HttpStatus accepted) {
-		// TODO Auto-generated constructor stub
-	}
-//	public ResponseDTO(String string, User verify, int i, String string2) {
+}
+//	public ResponseDTO(int i, String string, HttpStatus accepted) {
 //		// TODO Auto-generated constructor stub
 //	}
-}
+////	public ResponseDTO(String string, User verify, int i, String string2) {
+////		// TODO Auto-generated constructor stub
+////	}
+//}
 

@@ -56,5 +56,11 @@ public class Jms {
 		}
 	}
 
+
+	public void sendEmail(Long id, String subject, String body) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 

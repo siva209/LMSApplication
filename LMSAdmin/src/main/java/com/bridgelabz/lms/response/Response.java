@@ -26,22 +26,26 @@ public class Response {
 		this.data=user;
 		this.statusMsg=statusMsg;
 		}
-		public Response(int i, String string, Optional<Candidate> isUserPresent) {
+		public Response(String string, Long id) {
 			// TODO Auto-generated constructor stub
 		}
-		public Response(String string, int i, String string2) {
-			// TODO Auto-generated constructor stub
-		}
-//		public Response(String string, List<Candidate> isUserPresent, int i, boolean b, HttpStatus ok) {
-//			// TODO Auto-generated constructor stub
-//		}
 }
-		
-//		public Response(String string, Optional<Candidate> isUserPresent) {
+//		public Response(int i, String string, Optional<Candidate> isUserPresent) {
 //			// TODO Auto-generated constructor stub
 //		}
-//		public Response(String string, Optional<CandidateOnboardingDetails> isUserPresent) {
+//		public Response(String string, int i, String string2) {
 //			// TODO Auto-generated constructor stub
 //		}
+////		public Response(String string, List<Candidate> isUserPresent, int i, boolean b, HttpStatus ok) {
+////			// TODO Auto-generated constructor stub
+////		}
 //}
+//		
+////		public Response(String string, Optional<Candidate> isUserPresent) {
+////			// TODO Auto-generated constructor stub
+////		}
+////		public Response(String string, Optional<CandidateOnboardingDetails> isUserPresent) {
+////			// TODO Auto-generated constructor stub
+////		}
+////}
 

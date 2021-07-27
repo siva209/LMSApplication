@@ -22,7 +22,6 @@ public class CandidateRegistrationException extends RuntimeException{
 		this.data = data;
 		this.statusMsg = statusMsg;
 	}
-	public CandidateRegistrationException(int i, String string) {
-		// TODO Auto-generated constructor stub
-	}
 }
+
+

@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.ResponseDTO;
 import com.bridgelabz.lms.dto.StatusDTO;
+import com.bridgelabz.lms.dto.UpdateStatusDto;
+import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.service.IStatusService;
 
 @RestController
@@ -26,25 +29,25 @@ public class StatusController {
 	
 	@PostMapping("/addstatusDetails/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<ResponseDTO> addingStatusDetails(@RequestBody StatusDTO dto){
-		ResponseDTO respDTO = lmsStatusService.addingStatusDetails(dto);
-		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	public ResponseEntity<Response> addingStatusDetails(@RequestBody StatusDTO dto){
+		Response respDTO = lmsStatusService.addingStatusDetails(dto);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getstatus")
-	public ResponseEntity<ResponseDTO> getStatus() {
-		ResponseDTO respDTO = lmsStatusService.getAllStatus();
-		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	public ResponseEntity<Response> getStatus() {
+		Response respDTO = lmsStatusService.getAllStatus();
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@PutMapping("/updatestatus")
-	public ResponseEntity<ResponseDTO> updatestatus(@RequestBody Long id ,StatusDTO dto) {
-		ResponseDTO respDTO = lmsStatusService.updateCandidateStatus(id,dto);
-		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	@PutMapping("//updatestatus/{id}")
+	public ResponseEntity<Response> updateCandidateStatus(@RequestBody Long id ,UpdateStatusDto dto) {
+		Response respDTO = lmsStatusService.updateCandidateStatus(id, dto);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletehiring/{id}")
-	public void deleteCandidateHiringById(@PathVariable Long id)  {
+	public void deleteCandidaStatusd(@PathVariable Long id)  {
 		lmsStatusService.deleteCandidaStatusd(id);
 	}
 	

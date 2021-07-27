@@ -2,24 +2,22 @@ package com.bridgelabz.lms.service;
 
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.lms.dto.UpdateDto;
-import com.bridgelabz.lms.dto.UserDTO;
-import com.bridgelabz.lms.exception.InvalidDetailsException;
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
+import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.response.Response;
 
 
+
+
 @Service
 public interface CandidateService {
-	Response registerCandidate(UserDTO dto) throws InvalidDetailsException;
-	public Candidate verify(String token);
-	public Response getAllHiredcandidates();
-	public Candidate getCandidateProfileById(Long id);
-	public Response updateCandidate(Long id,UpdateDto dto);
-	 void deleteCandidateHiringById(Long id) ;
-
-
-	
-
-
+	public Response registerCandidate(CandidateHiredDTO dto);
+    public Response getAllHiredcandidates();
+    public Candidate verify(String token);
+    public Candidate getCandidateProfileById(Long id);
+    public Response updateCandidate(Long id,UpdateHiringDto dto);
+    public void deleteCandidateHiringById(Long id) ;
+    
+    
 }

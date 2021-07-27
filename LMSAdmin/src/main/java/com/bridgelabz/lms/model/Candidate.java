@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UpdateHiringDto;
 
 import lombok.Data;
 
@@ -23,7 +23,7 @@ import lombok.Data;
 @Table(name = "candidates")
 public class Candidate {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	private String firstName;
 	private String middleName;

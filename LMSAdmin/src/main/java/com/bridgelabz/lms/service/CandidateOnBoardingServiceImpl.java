@@ -1,7 +1,7 @@
 package com.bridgelabz.lms.service;
 
 
-import java.util.List;
+
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -10,15 +10,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
-
+import java.util.List;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
-
 import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.repository.CandidateOnBoardingRepository;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.util.Jms;
 import com.bridgelabz.lms.util.JwtUtil;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,9 +47,13 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
   private CandidateOnboardingDetails details;
 	@Override
 	public Response getAllOnBoardingcandidates() {
-		List<CandidateOnboardingDetails> isUserPresent = candidaterepo.findAll();
-		return new Response("List of HiredCandidates are",isUserPresent,200,"true");
+		List<CandidateOnboardingDetails> isPresent = candidaterepo.findAll();
+		System.out.println(isPresent);
+		return new Response("List of HiredCandidates are",isPresent,200,"true");
 	}
+	
+	
+	
 	@Override
 	public Response createUser(CandidatEOnBoardingDTO dto) {
 		Optional<CandidateOnboardingDetails>isuserprsent=candidaterepo.isEmailExists(dto.getEmail());
@@ -66,7 +71,9 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 	}
 	
 	}
-	
+
+
+
 	@Override
 	public CandidateOnboardingDetails verify(String token) {
 		long id=jwt.parseJWT(token);
@@ -76,9 +83,11 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		candidaterepo.save(user);
 		return user;
 	}
-	
+
+
+
 	@Override
-	public Response updateOnBoardingCandidate(Long id, CandidatEOnBoardingDTO dto) {
+	public Response updateOnBoardingCandidate(Long id, CandidatEOnBoardUpdateDTO dto) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidaterepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setFirstName(dto.getFirstName());
@@ -87,31 +96,28 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 			isUserPresent.get().setEmail(dto.getEmail());
 			isUserPresent.get().setMobileNum(dto.getMobileNum());
 			isUserPresent.get().setHiredCity(dto.getHiredCity());
-			isUserPresent.get().setHiredDate(dto.getHiredDate());
 			isUserPresent.get().setDegree(dto.getDegree());
-			isUserPresent.get().setHiredLab(dto.getHiredLab());
-			isUserPresent.get().setAttitudeRemark(dto.getAttitudeRemark());
-			isUserPresent.get().setCommunicationRemark(dto.getCommunicationRemark());
+			isUserPresent.get().setHiredLab(dto.getHiredLab());;
 			isUserPresent.get().setKnowledgeRemark(dto.getKnowledgeRemark());
-			isUserPresent.get().setOnboardingStatus(dto.getOnboardingStatus());
-			//isUserPresent.get().setStatus(lmsCandidateDetail.getStatus());
-			isUserPresent.get().setCreatorUser(dto.getCreatorUser());
-			isUserPresent.get().setJoindate(dto.getJoindate());
-			isUserPresent.get().setLocation(dto.getLocation());
-			isUserPresent.get().setAggrPer(dto.getAggrPer());
-			isUserPresent.get().setCurrentPincode(dto.getCurrentPincode());
-			isUserPresent.get().setPermanentPincode(dto.getPermanentPincode());
+			System.out.println(isUserPresent);
 			candidaterepo.save(isUserPresent.get());
-			return new Response("Candidate Added:",200,"isUserPresent");
+			return new Response("regitration sucess", isUserPresent, 201, "true");
 		} else {
-			throw new  CandidateRegistrationException("invalid details",null,400,"true");
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
 	}
 
 
+
 	@Override
-	public void deleteCandidateHiringById(Long id) {
-		candidaterepo.deleteById(id);
-		
+	public void deleteOnBoardingCandidateById(Long id) {
+		Optional<CandidateOnboardingDetails> isUserPresent = candidaterepo.findById(id);
+		if (isUserPresent.isPresent()) {
+			candidaterepo.deleteById(id);
+		}else {
+			 new CandidateRegistrationException("Candidate to be Delete Not found",null,404,"true");
+		}
 	}
 }
+
+	

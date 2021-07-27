@@ -23,10 +23,11 @@ public class Status {
 	private String keyValue;
 	private String lastUpdatedUser;
 	private String sequenceNumber;
-	public void setCreateUser(String createdUser) {
+	public void setVerifyEmail(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	
 

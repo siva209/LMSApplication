@@ -1,0 +1,16 @@
+package com.bridgelabz.lms.service;
+
+import org.springframework.stereotype.Service;
+
+import com.bridgelabz.lms.dto.UpdateDto;
+import com.bridgelabz.lms.dto.UserDTO;
+import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.response.Response;
+
+
+
+@Service
+public interface CandidateService {
+	public Response registerCandidate(UserDTO dto);
+    public Response getAllHiredcandidates();
+}
