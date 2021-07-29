@@ -1,7 +1,4 @@
 package com.bridgelabz.lms.controller;
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
-
-
-import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.service.CandidateServiceImpl;
 import com.bridgelabz.lms.util.JwtUtil;
@@ -30,9 +22,7 @@ import com.bridgelabz.lms.util.JwtUtil;
 public class CandidateController {
 	@Autowired
 	private CandidateServiceImpl userimpl;
-	
-	@Autowired
-	private JwtUtil jwt;
+
 	/**
 	 * Register User : used to register the user
 	 * @param dto

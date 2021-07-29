@@ -1,15 +1,10 @@
 package com.bridgelabz.lms.service;
-
-
-
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
 import java.util.List;
@@ -19,21 +14,13 @@ import com.bridgelabz.lms.repository.CandidateOnBoardingRepository;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.util.Jms;
 import com.bridgelabz.lms.util.JwtUtil;
-
-
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingService{
-
-	
-	@Autowired
+     @Autowired
 	 private CandidateOnBoardingRepository candidaterepo;
-	
-	
-	@Autowired
-	private BCryptPasswordEncoder pwdencoder;
 	
 	@Autowired
 	private JwtUtil jwt=new JwtUtil();
@@ -50,7 +37,7 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 	public Response getAllOnBoardingcandidates() {
 		List<CandidateOnboardingDetails> isPresent = candidaterepo.findAll();
 		System.out.println(isPresent);
-		return new Response("List of HiredCandidates are",isPresent,200,"true");
+		return new Response("List of Onboarding Candidates are",isPresent,200,"true");
 	}
 	
 	

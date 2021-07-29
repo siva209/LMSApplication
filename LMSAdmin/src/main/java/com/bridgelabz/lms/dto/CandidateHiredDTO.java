@@ -24,6 +24,7 @@ public class CandidateHiredDTO {
 	private String status;
 	private LocalDateTime creatorStamp;
 	private LocalDateTime updateStamp;
+	int bank_Id;
 	//private String bankInfo;
 	//private String qualificationInfo;
   

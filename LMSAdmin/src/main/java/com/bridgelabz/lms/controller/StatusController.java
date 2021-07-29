@@ -1,7 +1,4 @@
 package com.bridgelabz.lms.controller;
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.lms.dto.StatusDTO;
-import com.bridgelabz.lms.dto.UpdateStatusDto;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.service.StatusServiceImpl;
 
@@ -39,17 +35,17 @@ public class StatusController {
 		Response respDTO = lmsStatusService.getAllStatus();
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-//	
-//	@PutMapping("//updatestatus/{id}")
-//	public ResponseEntity<Response> updateCandidateStatus(@RequestBody Long id ,UpdateStatusDto dto) {
-//		Response respDTO = lmsStatusService.updateCandidateStatus(id, dto);
-//		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
-//	}
-//	
-//	@DeleteMapping("/deletehiring/{id}")
-//	public void deleteCandidaStatusd(@PathVariable Long id)  {
-//		lmsStatusService.deleteCandidaStatusd(id);
-//	}
-//	
+	
+	@PutMapping("/updatestatus/{id}/{keyText}")
+	public ResponseEntity<Response> updateCandidateStatus(@RequestBody Long id ,String  keyText) {
+		Response respDTO = lmsStatusService.updateCandidateStatus(id, keyText);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deleteCandidaStatusd(@PathVariable Long id)  {
+		lmsStatusService.deleteCandidaStatusd(id);
+	}
+	
 	
 }

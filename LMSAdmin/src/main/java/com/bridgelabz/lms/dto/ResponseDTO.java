@@ -1,7 +1,4 @@
 package com.bridgelabz.lms.dto;
-
-import org.springframework.http.HttpStatus;
-
 import lombok.Data;
 
 @Data
@@ -13,11 +10,4 @@ public class ResponseDTO {
 		this.data = data;
 	}
 }
-//	public ResponseDTO(int i, String string, HttpStatus accepted) {
-//		// TODO Auto-generated constructor stub
-//	}
-////	public ResponseDTO(String string, User verify, int i, String string2) {
-////		// TODO Auto-generated constructor stub
-////	}
-//}
 
