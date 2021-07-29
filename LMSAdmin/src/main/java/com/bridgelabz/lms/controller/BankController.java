@@ -25,27 +25,27 @@ public class BankController {
 
 	@PostMapping("/addbankDetails")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response> addingBankDetails(@RequestBody BankDto dto,BindingResult result){
-		Response respDTO = baknservice.addingBankDetails(dto);
+	public ResponseEntity<Response> addingBankDetails(String token,@RequestBody BankDto dto,BindingResult result){
+		Response respDTO = baknservice.addingBankDetails(token,dto);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getallbankDetails")
-	public ResponseEntity<Response> getStatus() {
-		Response respDTO = baknservice.getAllBankDeatils();
+	public ResponseEntity<Response> getStatus(String token) {
+		Response respDTO = baknservice.getAllBankDeatils(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatebankdetails/{id}")
-	public ResponseEntity<Response> updateBankInfo(@PathVariable Integer id, @RequestBody UpdateBankDto dto,BindingResult result) {
-		Response respDTO = baknservice.updateBankInfo(id, dto);
+	public ResponseEntity<Response> updateBankInfo(String token,@PathVariable Integer id, @RequestBody UpdateBankDto dto,BindingResult result) {
+		Response respDTO = baknservice.updateBankInfo(token,id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletebankdetails/{id}")
-	public ResponseEntity<Response> deleteBankDetails(@PathVariable Integer id) {
-		baknservice.deleteBankDetails(id);
+	public ResponseEntity<Response> deleteBankDetails(String token,@PathVariable Integer id) {
+		baknservice.deleteBankDetails(token,id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}

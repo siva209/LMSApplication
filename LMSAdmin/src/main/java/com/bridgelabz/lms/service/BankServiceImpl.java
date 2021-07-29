@@ -20,7 +20,7 @@ public class BankServiceImpl implements BankInfoService {
 	private BankRepository bankrepo;
 	
 	@Override
-	public Response addingBankDetails(BankDto dto) {
+	public Response addingBankDetails(String token,BankDto dto) {
 		BankInfo bankinfo=modelmapper.map(dto, BankInfo.class);
 		System.out.println(bankinfo);
 		bankrepo.save(bankinfo);
@@ -28,14 +28,16 @@ public class BankServiceImpl implements BankInfoService {
 	}
 
 	@Override
-	public Response getAllBankDeatils() {
+	public Response getAllBankDeatils(String token) {
+		// int Id = tokenutil.decodeToken(token);
 		List<BankInfo> isPresent = bankrepo.findAll();
 		System.out.println(isPresent);
 		return new Response("List of all candidates Bank Details  are",isPresent,200,"true");
 	}
 
 	@Override
-	public Response updateBankInfo(Integer id, UpdateBankDto dto) {
+	public Response updateBankInfo(String token,Integer id, UpdateBankDto dto) {
+		// int Id = tokenutil.decodeToken(token);
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setAadharNumber(dto.getAadharNumber());
@@ -57,7 +59,8 @@ public class BankServiceImpl implements BankInfoService {
 	}
 
 	@Override
-	public void deleteBankDetails(Integer id) {
+	public void deleteBankDetails(String token,Integer id) {
+		// int Id = tokenutil.decodeToken(token);
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			bankrepo.deleteById(id);

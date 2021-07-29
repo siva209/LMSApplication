@@ -32,23 +32,23 @@ public class CandidateController {
 	
 	@PostMapping("/registeruser")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response> registerUser(@RequestBody CandidateHiredDTO dto,BindingResult result) {
-		Response response=userimpl.registerCandidate(dto);
+	public ResponseEntity<Response> registerUser(String token,@RequestBody CandidateHiredDTO dto,BindingResult result) {
+		Response response=userimpl.registerCandidate(token, dto);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getallHiredCandidatesss")
-	public ResponseEntity<Response> getAllHiredcandidates() {
-		Response respDTO = userimpl.getAllHiredcandidates();
+	public ResponseEntity<Response> getAllHiredcandidates(String token) {
+		Response respDTO = userimpl.getAllHiringCandidate(token);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	@GetMapping("/verifyemail/{token}")
-	public ResponseEntity<Response> verifyemail(@PathVariable("token") String token)
-	{
-		return new ResponseEntity<Response>(new Response("email verified",userimpl.verify(token),201,"true"),HttpStatus.ACCEPTED);
+
+	@GetMapping("/getcandidatehiring/{id}")
+	public ResponseEntity<Response> getCandidate(String token, @PathVariable Long id) {
+		Response respDTO = userimpl.getCandidate(token, id);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	
 	@GetMapping("/getuserbyprofile/{id}")
 	public ResponseEntity<Response> getCandidateProfileById(@PathVariable Long id){
 	{
@@ -63,11 +63,23 @@ public class CandidateController {
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
+	@PutMapping("/updatestatusHiring/{id}/{keyText}")
+	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
+		Response respDTO = userimpl.updateHiringStatus(token, id, token);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
 	
 	@DeleteMapping("/deletehiring/{id}")
-	public ResponseEntity<Response> deleteCandidateHiringById(@PathVariable Long id) {
-		userimpl.deleteCandidateHiringById(id);
+	public ResponseEntity<Response> deleteCandidateHiringById(String token,@PathVariable Long id) {
+		userimpl.deleteCandidateHiringById(token,id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
+	
+
+	@PostMapping("/offerMail")
+	public ResponseEntity<Response> jobOfferNotificationMail(String token, @RequestBody String email){
+		Response respDTO = userimpl.jobOfferNotificationMail(token, email);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 }

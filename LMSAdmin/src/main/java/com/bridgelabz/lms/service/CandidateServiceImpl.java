@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service;
 import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
+import com.bridgelabz.lms.model.BankInfo;
 import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.QualificationInfo;
+import com.bridgelabz.lms.model.Status;
+import com.bridgelabz.lms.repository.BankRepository;
 import com.bridgelabz.lms.repository.CandidateRepository;
+import com.bridgelabz.lms.repository.QualificationRepository;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.util.Jms;
 import com.bridgelabz.lms.util.JwtUtil;
@@ -25,63 +30,56 @@ public class CandidateServiceImpl implements CandidateService {
 	private BCryptPasswordEncoder pwdencoder;
 
 	@Autowired
-	private JwtUtil jwt = new JwtUtil();
+	private JwtUtil jwt;
 	@Autowired
 	private Jms jms;
 	@Autowired
 	private ModelMapper modelmapper;
 
 	@Autowired
-	private CandidateRepository userrepo;
-
-	@Override
-	public Response registerCandidate(CandidateHiredDTO dto) {
-		Optional<Candidate> isuserprsent = userrepo.isEmailExists(dto.getEmail());
-		if (isuserprsent.isPresent()) {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
-		} else {
-			Candidate user = modelmapper.map(dto, Candidate.class);
-			user.setCreatorStamp(LocalDateTime.now());
-			user.setUpdateStamp(LocalDateTime.now());
-			userrepo.save(user);
-			log.info(user.getFirstName() + " registered " + "date:" + user.getCreatorStamp());
-			String body = "http://localhost:8081/verifyemail/" + jwt.jwtToken(user.getId());
-			System.out.println(body);
-			jms.sendEmail(user.getEmail(), "verification email", body);
-			return new Response("regitration sucess", user, 201, "true");
-		}
-
-	}
-
+	private CandidateRepository candidaterrepo;
+	@Autowired
+	private BankRepository bankrepo;
+	
+	@Autowired
+	private QualificationRepository qualificationrepo;
+	
 	
 	@Override
-	public Response getAllHiredcandidates() {
-		List<Candidate> isUserPresent = userrepo.findAll();
+	public Response registerCandidate(String token,CandidateHiredDTO dto) {
+
+		Candidate AddDetails = modelmapper.map(dto, Candidate.class);
+		System.out.println(AddDetails);
+		candidaterrepo.save(AddDetails);
+		return new Response("Added Status: ", AddDetails,201,"true");
+	}
+	
+		
+	@Override
+	public Response getAllHiringCandidate(String token) {
+		//int Id = tokenutil.decodeToken(token);
+		List<Candidate> isUserPresent = candidaterrepo.findAll();
 		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 	}
 
-
 	@Override
-	public Candidate verify(String token) {
-		long id=jwt.parseJWT(token);
-		log.debug(token);
-		Candidate user=userrepo.isIdExists(id).orElseThrow(() -> new CandidateRegistrationException("user not exists",HttpStatus.OK,id,"false"));
-		user.setVerifyEmail(true);
-		userrepo.save(user);
-		return user;
-	}
-
+	public Response getCandidate(String token, Long id) {
+		// int Id = tokenutil.decodeToken(token);
+				Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
+				Candidate candidates = isUserPresent.get();
+				return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
+			}
 
 	@Override
 	public Candidate getCandidateProfileById(Long id) {
-		return userrepo.getCandidateProfileById(id)
+		return candidaterrepo.getCandidateProfileById(id)
 		.orElseThrow(() -> new CandidateRegistrationException("user not exists", HttpStatus.OK, id, "false"));
 }
 
 
 	@Override
 	public Response updateCandidate(Long id, UpdateHiringDto dto) {
-		Optional<Candidate> isUserPresent = userrepo.findById(id);
+		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setFirstName(dto.getFirstName());
 			isUserPresent.get().setMiddleName(dto.getMiddleName());
@@ -98,10 +96,13 @@ public class CandidateServiceImpl implements CandidateService {
 			isUserPresent.get().setProfileImage(dto.getProfileImage());
 			isUserPresent.get().setFolderId(dto.getFolderId());
 			isUserPresent.get().setCreatorStamp(dto.getCreatorStamp());
-			// isUserPresent.get().setStatus(lmsCandidateHiring.getStatus());
+			isUserPresent.get().setStatus(dto.getStatus());
 			isUserPresent.get().setUpdateStamp(LocalDateTime.now());
+			
+			//isUserPresent.get().setHiringBankInfo(lmsCandidateHiring.getBank_Id());
+			//isUserPresent.get().setQualificationInfo(lmsCandidateHiring.getQualificationInfo());
 			System.out.println(isUserPresent);
-			userrepo.save(isUserPresent.get());
+			candidaterrepo.save(isUserPresent.get());
 			return new Response("regitration sucess", isUserPresent, 201, "true");
 		} else {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
@@ -110,16 +111,48 @@ public class CandidateServiceImpl implements CandidateService {
 
 
 	@Override
-	public void deleteCandidateHiringById(Long id) {
-		Optional<Candidate> isUserPresent = userrepo.findById(id);
+	public void deleteCandidateHiringById(String token,Long id) {
+		// int Id = tokenutil.decodeToken(token);
+		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
-			userrepo.deleteById(id);
+			candidaterrepo.deleteById(id);
 		}else {
 			 new CandidateRegistrationException("Candidate to be Delete Not found",null,404,"true");
 		}
 	}
-}
 	
-	
+	@Override
+	public Response updateHiringStatus(String token, Long id, String keyText) {
+		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
+		if (isUserPresent.isPresent()) {
+			isUserPresent.get().setStatus(keyText);
+			candidaterrepo.save(isUserPresent.get());
+			return new Response("Candidate status updated Successfully ", isUserPresent, 201, "true");
+		} else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+	}
+
+
+	@Override
+	public Response jobOfferNotificationMail(String token, String email) {
+		// int Id = tokenutil.decodeToken(token);
+				Optional<Candidate> isUserPresent = candidaterrepo.findAllByemail(email);
+				boolean emailmatch = isUserPresent.get().getEmail().matches(email);
+				if (emailmatch == true) {
+					// String token = tokenutil.createToken(createUser.getId());
+					System.out.println(token);
+					String body = "This is a Candidate Job Offer Notification";
+					System.out.println(body);
+					jms.sendEmail(isUserPresent.get().getEmail(), "Job Offer", body);
+					return new Response("Successfully send notification ", isUserPresent, 201, "true");
+				} else {
+					throw new CandidateRegistrationException("invalid details", null, 400, "true");
+				}
+			}
+	}
+
+
+
 
 

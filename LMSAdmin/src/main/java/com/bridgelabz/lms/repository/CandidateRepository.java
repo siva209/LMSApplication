@@ -22,6 +22,9 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long>{
      Optional<Candidate> getCandidateProfileById(Long id);
 
 	Optional<Candidate> findById(Long id);
+
+
+	Optional<Candidate> findAllByemail(String email);
 	
 
 }

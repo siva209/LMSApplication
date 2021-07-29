@@ -47,6 +47,12 @@ public class Candidate {
 	@JoinColumn(name = "bank_Id", referencedColumnName = "id")
 	private BankInfo hiringBankInfo;
 	
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "qualification_Id", referencedColumnName = "id")
+	private QualificationInfo hiringQualificationInfo;
+
   
 	@Column(name = "is_verify_email ", columnDefinition = "boolean default false")
 	private boolean verifyEmail;

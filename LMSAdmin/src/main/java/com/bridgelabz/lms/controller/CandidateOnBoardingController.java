@@ -25,29 +25,33 @@ public class CandidateOnBoardingController {
 	
 	@PostMapping("/OnBoarding")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response>createUser(@RequestBody CandidatEOnBoardingDTO dto,BindingResult result){
-		Response response=onboardingserviceimpl.createUser(dto);
+	public ResponseEntity<Response>createUser(String token,@RequestBody CandidatEOnBoardingDTO dto,BindingResult result){
+		Response response=onboardingserviceimpl.createUser(token,dto);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	 
 	
 	@GetMapping("/getallOnboardingCandidates")
-	public ResponseEntity<Response> getAllOnBoardingcandidates() {
-		Response respDTO = onboardingserviceimpl.getAllOnBoardingcandidates();
+	public ResponseEntity<Response> getAllOnBoardingcandidates(String token) {
+		Response respDTO = onboardingserviceimpl.getAllOnBoardingcandidates(token);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatecandidateOnBoard/{id}")
-	public ResponseEntity<Response> updateOnBoardingCandidate(@PathVariable Long id, @RequestBody CandidatEOnBoardUpdateDTO dto,BindingResult result) {
-		Response respDTO = onboardingserviceimpl.updateOnBoardingCandidate(id, dto);
+	public ResponseEntity<Response> updateOnBoardingCandidate(String token,@PathVariable Long id, @RequestBody CandidatEOnBoardUpdateDTO dto,BindingResult result) {
+		Response respDTO = onboardingserviceimpl.updateOnBoardingCandidate(token, id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	
+	@PutMapping("/updatestatusonboardHiring/{id}/{keyText}")
+	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
+		Response respDTO = onboardingserviceimpl.updateStatus(token, id, keyText);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
 	@DeleteMapping("/deleteonboardingcandidate/{id}")
-	public ResponseEntity<Response> deleteOnBoardingCandidateById(@PathVariable Long id) {
-		onboardingserviceimpl.deleteOnBoardingCandidateById(id);
+	public ResponseEntity<Response> deleteOnBoardingCandidateById(String token,@PathVariable Long id) {
+		onboardingserviceimpl.deleteOnBoardingCandidateById(token, id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
