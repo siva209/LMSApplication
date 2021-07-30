@@ -47,7 +47,7 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		// int Id = tokenutil.decodeToken(token);
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
 		CandidateOnboardingDetails candidates = isUserPresent.get();
-		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
+		return new Response("List of OnBoarding Candidates are", isUserPresent, 200, "true");
 	}
 	
 	@Override
@@ -73,9 +73,9 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 			isUserPresent.get().setKnowledgeRemark(dto.getKnowledgeRemark());
 			System.out.println(isUserPresent);
 			candidateonboardrepo.save(isUserPresent.get());
-			return new Response("regitration sucess", isUserPresent, 201, "true");
+			return new Response("Updated OnBoarding Candidates  Successfully", isUserPresent, 201, "true");
 		} else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException("invalid OnBoarding Candidates details", null, 400, "true");
 		}
 	}
 

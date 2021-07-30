@@ -37,10 +37,6 @@ public class Candidate {
 	private String status;
 	private LocalDateTime creatorStamp;
 	private LocalDateTime updateStamp;
-	//private BankInfo bankInfo;
-	//private String qualificationInfo;
-	
-	
 	
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)

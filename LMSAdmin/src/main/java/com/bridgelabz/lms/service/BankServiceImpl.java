@@ -1,18 +1,39 @@
 package com.bridgelabz.lms.service;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bridgelabz.lms.dto.BankDto;
 import com.bridgelabz.lms.dto.UpdateBankDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
 import com.bridgelabz.lms.model.BankInfo;
+import com.bridgelabz.lms.model.FileDB;
 import com.bridgelabz.lms.repository.BankRepository;
 import com.bridgelabz.lms.response.Response;
 @Service
 public class BankServiceImpl implements BankInfoService {
-
+	
 	@Autowired
 	private ModelMapper modelmapper;
 	
@@ -24,7 +45,7 @@ public class BankServiceImpl implements BankInfoService {
 		BankInfo bankinfo=modelmapper.map(dto, BankInfo.class);
 		System.out.println(bankinfo);
 		bankrepo.save(bankinfo);
-		return new Response("Added Status: ", bankinfo,201,"true");
+		return new Response("Added Status Details: ", bankinfo,201,"true");
 	}
 
 	@Override
@@ -52,9 +73,9 @@ public class BankServiceImpl implements BankInfoService {
 			isUserPresent.get().setUpdateStamp(dto.getUpdateStamp().now());
 			System.out.println(isUserPresent);
 			bankrepo.save(isUserPresent.get());
-			return new Response("regitration sucess", isUserPresent, 201, "true");
+			return new Response("Update bank details  successfully", isUserPresent, 201, "true");
 		} else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException("invalid bank details", null, 400, "true");
 		}
 	}
 
@@ -68,5 +89,42 @@ public class BankServiceImpl implements BankInfoService {
 			 new CandidateRegistrationException("Candidate Bank Details to be Delete Not found",null,404,"true");
 		}
 	}
+
+	@Override
+	public Response store(String token, int id, MultipartFile panFile, MultipartFile aadharFile,
+			MultipartFile passBookFile) throws Exception {
+		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
+		if (isUserPresent.isPresent()) {
+
+			String pan = StringUtils.cleanPath(panFile.getOriginalFilename());
+			String Aadhar = StringUtils.cleanPath(aadharFile.getOriginalFilename());
+			String passBook = StringUtils.cleanPath(passBookFile.getOriginalFilename());
+
+			isUserPresent.get().setPanPath(pan);
+			isUserPresent.get().setAadharPath(Aadhar);
+			isUserPresent.get().setPassbookPath(passBook);
+
+			bankrepo.save(isUserPresent.get());
+			
+			return new Response("Successfully Uploading Multiple Files  ", isUserPresent, 201, "true");
+		} else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+	}
+
+//	@Override
+//	public FileDB getFile(String id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Stream<FileDB> getAllFiles() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
 		
 	}
+
+	
