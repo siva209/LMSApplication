@@ -6,9 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
+
+import java.util.Iterator;
 import java.util.List;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
-import com.bridgelabz.lms.model.Candidate;
 import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.repository.CandidateOnBoardingRepository;
 import com.bridgelabz.lms.response.Response;
@@ -105,6 +106,22 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
 	}
-}
+
+
+	@Override
+	public Response getCount(String token) {
+		// int Id = tokenutil.decodeToken(token);
+		List<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findAll();
+		long count = 0;
+		for (Iterator iterator = isUserPresent.iterator(); iterator.hasNext();) {
+			CandidateOnboardingDetails lmsHiring = (CandidateOnboardingDetails) iterator.next();
+			count++;
+		}
+		return new Response("Number of Candidates : ", count,201,"true");
+	}
+
+
+	}
+
 
 

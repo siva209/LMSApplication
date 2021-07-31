@@ -55,4 +55,11 @@ public class CandidateOnBoardingController {
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
+	
+
+	@GetMapping("/getonboardcount")
+	public ResponseEntity<Response> getcount(String token) {
+		Response respDTO = onboardingserviceimpl.getCount(token);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
 }

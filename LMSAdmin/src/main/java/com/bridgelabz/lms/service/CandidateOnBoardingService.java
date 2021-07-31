@@ -17,5 +17,6 @@ public interface CandidateOnBoardingService {
 	 public Response updateOnBoardingCandidate(String token,Long id,CandidatEOnBoardUpdateDTO dto);
 	 public void deleteOnBoardingCandidateById(String token,Long id) ;
 	 public Response updateStatus(String token, Long id, String keyText);
+	 public  Response getCount(String token);
 	    
 }
