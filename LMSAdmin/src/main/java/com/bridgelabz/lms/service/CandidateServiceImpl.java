@@ -1,5 +1,6 @@
 package com.bridgelabz.lms.service;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -150,7 +151,21 @@ public class CandidateServiceImpl implements CandidateService {
 					throw new CandidateRegistrationException("invalid details", null, 400, "true");
 				}
 			}
-	}
+
+
+	@Override
+	public Response getCount(String token) {
+		// int Id = tokenutil.decodeToken(token);
+				List<Candidate> isUserPresent = candidaterrepo.findAll();
+				long count = 0;
+				for (Iterator iterator = isUserPresent.iterator(); iterator.hasNext();) {
+					Candidate lmsHiring = (Candidate) iterator.next();
+					count++;
+				}
+				return new Response("Number of Candidates : ", count,201,"true");
+			}
+		}
+	
 
 
 

@@ -82,6 +82,12 @@ public class CandidateController {
 		Response respDTO = userimpl.jobOfferNotificationMail(token, email);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getcount")
+	public ResponseEntity<Response> getcount(String token) {
+		Response respDTO = userimpl.getCount(token);
+		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
+	}
 }
 
 

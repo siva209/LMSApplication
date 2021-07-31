@@ -15,5 +15,6 @@ public interface CandidateService {
     public void deleteCandidateHiringById(String token,Long id) ;
     public  Response updateHiringStatus(String token, Long id, String keyText);
     public Response jobOfferNotificationMail(String token, String email);
+    public  Response getCount(String token);
     
 }
