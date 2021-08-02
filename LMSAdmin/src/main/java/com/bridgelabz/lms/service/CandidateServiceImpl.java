@@ -46,6 +46,12 @@ public class CandidateServiceImpl implements CandidateService {
 	private QualificationRepository qualificationrepo;
 	
 	
+	/**
+	 * Register User : used to register the user
+	 * @param dto,token
+	 * @return register response
+	 */
+	
 	@Override
 	public Response registerCandidate(String token,CandidateHiredDTO dto) {
 
@@ -55,13 +61,26 @@ public class CandidateServiceImpl implements CandidateService {
 		return new Response("Added Status: ", AddDetails,201,"true");
 	}
 	
-		
+	/**
+	 * Get All HiringCandidates: used to display all the hiring candidates in the table
+	 * @param token
+	 * @return response of list of users
+	 */
+	
 	@Override
 	public Response getAllHiringCandidate(String token) {
 		//int Id = tokenutil.decodeToken(token);
 		List<Candidate> isUserPresent = candidaterrepo.findAll();
 		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 	}
+	
+	/**
+	 * Get  HiringCandidates by id: get the  hiring candidates based upon candidate id in the table
+	 * @param token,id
+	 * @return response of specified  user
+	 */
+	
+	
 
 	@Override
 	public Response getCandidate(String token, Long id) {
@@ -70,6 +89,13 @@ public class CandidateServiceImpl implements CandidateService {
 				Candidate candidates = isUserPresent.get();
 				return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 			}
+	
+	/**
+	 * Get  HiringCandidates by Profileid:  get the  hiring candidates based upon candidate  profileid in the table
+	 * @param id
+	 * @return response of candidate profile
+	 */
+	
 
 	@Override
 	public Candidate getCandidateProfileById(Long id) {
@@ -77,7 +103,13 @@ public class CandidateServiceImpl implements CandidateService {
 		.orElseThrow(() -> new CandidateRegistrationException("user not exists", HttpStatus.OK, id, "false"));
 }
 
-
+	/**
+	 * Update Candidate : set new data for HiringCandidate
+	 * @param UpdateHiringDto
+	 * @return response of UpdateHiringDto
+	 */
+	
+	
 	@Override
 	public Response updateCandidate(Long id, UpdateHiringDto dto) {
 		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
@@ -110,6 +142,12 @@ public class CandidateServiceImpl implements CandidateService {
 		}
 	}
 
+	
+	/**
+	 * Delete User: used to delete the present user
+	 * @param id
+	 * @return response of deleted or not
+	 */
 
 	@Override
 	public void deleteCandidateHiringById(String token,Long id) {
@@ -133,7 +171,11 @@ public class CandidateServiceImpl implements CandidateService {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
 	}
-
+	/**
+	 * Verify Eamil : used to verify the email whether sent link is correct or not
+	 * @param token
+	 * @return verification response
+	 */
 
 	@Override
 	public Response jobOfferNotificationMail(String token, String email) {
@@ -153,6 +195,13 @@ public class CandidateServiceImpl implements CandidateService {
 			}
 
 
+	/**
+	 * Count Hiring Candidates: calculate the hiring candidates 
+	 * @param id
+	 * @return response of count number of hiring candidates
+	 */
+
+	
 	@Override
 	public Response getCount(String token) {
 		// int Id = tokenutil.decodeToken(token);

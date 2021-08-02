@@ -34,6 +34,14 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
   @Autowired
   private CandidateOnboardingDetails details;
   
+	
+	/**
+	 * Get All OnBoardingCandidates: used to display all the OnBoardingCandidates in the table
+	 * @param token
+	 * @return response of list of OnBoardingCandidates
+	 */
+	
+  
 	@Override
 	public Response getAllOnBoardingcandidates(String token) {
 		//int Id = tokenutil.decodeToken(token);
@@ -41,6 +49,12 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		System.out.println(isPresent);
 		return new Response("List of Onboarding Candidates are",isPresent,200,"true");
 	}
+	
+	/**
+	 * Get  OnBoardingCandidates by id: get the  hiring candidates based upon candidate id in the table
+	 * @param token,id
+	 * @return response of specified  user
+	 */
 	
 
 	@Override
@@ -51,6 +65,13 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		return new Response("List of OnBoarding Candidates are", isUserPresent, 200, "true");
 	}
 	
+
+	/**
+	 * Register User : used to register the user
+	 * @param dto,token
+	 * @return register response
+	 */
+	
 	@Override
 	public Response createUser(String token,CandidatEOnBoardingDTO dto) {
 		CandidateOnboardingDetails candidateDetails = modelmapper.map(dto, CandidateOnboardingDetails.class);
@@ -58,6 +79,13 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		candidateonboardrepo.save(candidateDetails);
 		return new Response("Added Status: ", candidateDetails,201,"true");
 	}
+	
+
+	/**
+	 * Update OnBoardingCandidates : set new data for OnBoardingCandidates
+	 * @param CandidatEOnBoardUpdateDTO
+	 * @return response of OnBoardingCandidates
+	 */
 
 	@Override
 	public Response updateOnBoardingCandidate(String token,Long id, CandidatEOnBoardUpdateDTO dto) {
@@ -80,7 +108,11 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		}
 	}
 
-
+	/**
+	 * Delete OnBoardingCandidates: used to delete the present user
+	 * @param id
+	 * @return response of deleted or not
+	 */
 
 	@Override
 	public void deleteOnBoardingCandidateById(String token,Long id) {
@@ -94,6 +126,12 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 		}
 	}
 
+	/**
+	 * Update OnBoardingCandidates : set new keyText for OnBoardingCandidates
+	 * @param id,KeyText
+	 * @return response of KeyText
+	 */
+	
 
 	@Override
 	public Response updateStatus(String token, Long id, String keyText) {
@@ -106,7 +144,11 @@ public class CandidateOnBoardingServiceImpl implements CandidateOnBoardingServic
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
 	}
-
+	/**
+	 * Count OnBoardingCandidates : calculate the OnBoardingCandidates
+	 * @param id
+	 * @return response of count number of OnBoardingCandidates 
+	 */
 
 	@Override
 	public Response getCount(String token) {
