@@ -1,5 +1,7 @@
 package com.bridgelabz.lms.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -19,6 +21,14 @@ public class HiringCandidates {
 	private String parentOccupation;
 	private String parentAnnualSalary;
 	private String permanentAddress;
+	private LocalDateTime creatorStamp;
+	private LocalDateTime updateStamp;
+	public LocalDateTime getUpdateStamp() {
+		return updateStamp;
+	}
+	public void setUpdateStamp(LocalDateTime updateStamp) {
+		this.updateStamp = updateStamp;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +106,12 @@ public class HiringCandidates {
 	}
 	public void setPermanentAddress(String permanentAddress) {
 		this.permanentAddress = permanentAddress;
+	}
+	public LocalDateTime getCreatorStamp() {
+		return creatorStamp;
+	}
+	public void setCreatorStamp(LocalDateTime creatorStamp) {
+		this.creatorStamp = creatorStamp;
 	}
 	
 }

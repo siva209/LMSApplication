@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class CandidateServiceImpl implements CandidateService {
+public class CandidateServiceImpl implements CandidateHiringService {
 
 	@Autowired
 	private BCryptPasswordEncoder pwdencoder;
