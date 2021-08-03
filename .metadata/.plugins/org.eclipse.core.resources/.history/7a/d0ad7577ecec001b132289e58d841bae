@@ -1,9 +1,0 @@
-package com.bridgelabz.lms.service;
-
-import com.bridgelabz.lms.dto.CandidateHiredDTO;
-import com.bridgelabz.lms.model.CandidateOnboardingDetails;
-
-public interface CandidateOnBoardingService {
-	public CandidateOnboardingDetails createUser(CandidateHiredDTO dto);
-
-}

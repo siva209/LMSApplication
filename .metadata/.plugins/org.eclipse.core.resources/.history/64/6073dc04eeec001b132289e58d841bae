@@ -1,9 +1,0 @@
-package com.bridgelabz.lms.controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-public class CandidateOnBoardingController {
-	@Autowired
-	private 
-
-}

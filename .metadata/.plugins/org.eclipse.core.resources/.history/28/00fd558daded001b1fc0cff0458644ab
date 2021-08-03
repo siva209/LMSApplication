@@ -1,9 +1,0 @@
-package com.bridgelabz.lms.model;
-
-import javax.annotation.Generated;
-
-public class Status {
-	@Id
-	@Generated()
-
-}

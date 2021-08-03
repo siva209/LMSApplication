@@ -1,7 +1,0 @@
-package com.bridgelabz.lms.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CandidateRepository extends  JpaRepository<UserEntity, Long>{
-
-}

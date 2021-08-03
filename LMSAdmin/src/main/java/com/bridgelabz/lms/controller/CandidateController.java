@@ -65,7 +65,7 @@ public class CandidateController {
 	}
 	@PutMapping("/updatestatusHiring/{id}/{keyText}")
 	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
-		Response respDTO = userimpl.updateHiringStatus(token, id, token);
+		Response respDTO = userimpl.updateHiringStatus(token, id, keyText);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	

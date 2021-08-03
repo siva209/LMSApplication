@@ -1,0 +1,5 @@
+id,firstName,middleName,lastName,email,mobileNum,hiredCity,parentName,parentMobile,temporaryAddress,parentOccupation,parentAnnualSalary,permanentAddress
+1,Anmol,Manish,patil,at@gmail.com,8684568557,Mumbai,Manish,89798798789,Mumbai,Farming,100000,Mumbai
+2,Durga,NA,Prasath,dt@gmail.com,8684568557,Chennai,Manish,89798798789,Chennai,NA,100000,Chennai
+3,Sivanrayana,Yeruva,Reddy,siva@gmail.com,8684568557,Banglore,Manish,89798798789,Banglore,NA,100000,Banglore
+4,Pratik,NA,Hajare,pratik@gmail.com,8684568557,Mumbai,Manish,89798798789,Mumbai,NA,100000,Mumbai
