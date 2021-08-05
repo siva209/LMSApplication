@@ -5,15 +5,14 @@ import java.time.LocalDateTime;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import com.bridgelabz.lms.model.HiringCandidates;
-
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
 
 
 @Component
-public class Processor implements ItemProcessor<HiringCandidates, HiringCandidates> {
+public class Processor implements ItemProcessor<CandidateHiredDTO, CandidateHiredDTO> {
 
     @Override
-    public HiringCandidates process(HiringCandidates user) throws Exception {
+    public CandidateHiredDTO process(CandidateHiredDTO user) throws Exception {
     	 user.setCreatorStamp(LocalDateTime.now());
     	 user.setUpdateStamp(LocalDateTime.now());
         return user;

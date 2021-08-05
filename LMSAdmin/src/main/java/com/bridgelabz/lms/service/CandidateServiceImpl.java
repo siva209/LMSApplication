@@ -12,7 +12,7 @@ import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
 import com.bridgelabz.lms.model.BankInfo;
-import com.bridgelabz.lms.model.Candidate;
+import com.bridgelabz.lms.model.HiringCandidate;
 import com.bridgelabz.lms.model.QualificationInfo;
 import com.bridgelabz.lms.model.Status;
 import com.bridgelabz.lms.repository.BankRepository;
@@ -54,8 +54,9 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	
 	@Override
 	public Response registerCandidate(String token,CandidateHiredDTO dto) {
+		//int Id = tokenutil.decodeToken(token);
 
-		Candidate AddDetails = modelmapper.map(dto, Candidate.class);
+		HiringCandidate AddDetails = modelmapper.map(dto, HiringCandidate.class);
 		System.out.println(AddDetails);
 		candidaterrepo.save(AddDetails);
 		return new Response("Added Status: ", AddDetails,201,"true");
@@ -70,7 +71,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	@Override
 	public Response getAllHiringCandidate(String token) {
 		//int Id = tokenutil.decodeToken(token);
-		List<Candidate> isUserPresent = candidaterrepo.findAll();
+		List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
 		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 	}
 	
@@ -85,8 +86,8 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	@Override
 	public Response getCandidate(String token, Long id) {
 		// int Id = tokenutil.decodeToken(token);
-				Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
-				Candidate candidates = isUserPresent.get();
+				Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
+				HiringCandidate candidates = isUserPresent.get();
 				return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 			}
 	
@@ -98,7 +99,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	
 
 	@Override
-	public Candidate getCandidateProfileById(Long id) {
+	public HiringCandidate getCandidateProfileById(Long id) {
 		return candidaterrepo.getCandidateProfileById(id)
 		.orElseThrow(() -> new CandidateRegistrationException("user not exists", HttpStatus.OK, id, "false"));
 }
@@ -112,7 +113,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	
 	@Override
 	public Response updateCandidate(Long id, UpdateHiringDto dto) {
-		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
+		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setFirstName(dto.getFirstName());
 			isUserPresent.get().setMiddleName(dto.getMiddleName());
@@ -152,7 +153,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	@Override
 	public void deleteCandidateHiringById(String token,Long id) {
 		// int Id = tokenutil.decodeToken(token);
-		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
+		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			candidaterrepo.deleteById(id);
 		}else {
@@ -162,7 +163,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	
 	@Override
 	public Response updateHiringStatus(String token, Long id, String keyText) {
-		Optional<Candidate> isUserPresent = candidaterrepo.findById(id);
+		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setStatus(keyText);
 			candidaterrepo.save(isUserPresent.get());
@@ -180,7 +181,7 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	@Override
 	public Response jobOfferNotificationMail(String token, String email) {
 		// int Id = tokenutil.decodeToken(token);
-				Optional<Candidate> isUserPresent = candidaterrepo.findAllByemail(email);
+				Optional<HiringCandidate> isUserPresent = candidaterrepo.findAllByemail(email);
 				boolean emailmatch = isUserPresent.get().getEmail().matches(email);
 				if (emailmatch == true) {
 					// String token = tokenutil.createToken(createUser.getId());
@@ -205,10 +206,10 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	@Override
 	public Response getCount(String token) {
 		// int Id = tokenutil.decodeToken(token);
-				List<Candidate> isUserPresent = candidaterrepo.findAll();
+				List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
 				long count = 0;
 				for (Iterator iterator = isUserPresent.iterator(); iterator.hasNext();) {
-					Candidate lmsHiring = (Candidate) iterator.next();
+					HiringCandidate lmsHiring = (HiringCandidate) iterator.next();
 					count++;
 				}
 				return new Response("Number of Candidates : ", count,201,"true");

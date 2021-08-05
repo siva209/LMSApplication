@@ -14,8 +14,11 @@
     <fullyQualifiedTypeName name="com.bridgelabz.lms.repository.CandidateOnBoardingRepository"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
     <fullyQualifiedTypeName name="com.bridgelabz.lms.model.CandidateOnboardingDetails"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.bridgelabz.lms.response.Response"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.lms.dto.CandidateHiredDTO"/>
     <fullyQualifiedTypeName name="com.bridgelabz.lms.service.CandidateOnBoardingServiceImpl"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.repository.CandidateRepository"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.model.Candidate"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.lms.dto.CandidateHiredDTO"/>
 </qualifiedTypeNameHistroy>

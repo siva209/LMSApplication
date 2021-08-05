@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
-import com.bridgelabz.lms.model.HiringCandidates;
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
 
 @Configuration
 @EnableBatchProcessing
@@ -27,13 +27,13 @@ public class SpringBatchConfig {
     @Bean
     public Job job(JobBuilderFactory jobBuilderFactory,
                    StepBuilderFactory stepBuilderFactory,
-                   ItemReader<HiringCandidates> itemReader,
-                   ItemProcessor<HiringCandidates, HiringCandidates> itemProcessor,
-                   ItemWriter<HiringCandidates> itemWriter
+                   ItemReader<CandidateHiredDTO> itemReader,
+                   ItemProcessor<CandidateHiredDTO, CandidateHiredDTO> itemProcessor,
+                   ItemWriter<CandidateHiredDTO> itemWriter
     ) {
 
         Step step = stepBuilderFactory.get("ETL-file-load")
-                .<HiringCandidates, HiringCandidates>chunk(100)
+                .<CandidateHiredDTO, CandidateHiredDTO>chunk(100)
                 .reader(itemReader)
                 .processor(itemProcessor)
                 .writer(itemWriter)
@@ -47,8 +47,8 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public FlatFileItemReader<HiringCandidates> itemReader() {
-    	 FlatFileItemReader<HiringCandidates> flatFileItemReader = new FlatFileItemReader<>();
+    public FlatFileItemReader<CandidateHiredDTO> itemReader() {
+    	 FlatFileItemReader<CandidateHiredDTO> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setResource(new FileSystemResource("F:\\CODE\\23-05-2021\\SBDemo\\SpringProjects\\LMSAdmin\\src\\main\\resources\\candidate_data.csv"));
         flatFileItemReader.setName("CSV-Reader");
         flatFileItemReader.setLinesToSkip(1);
@@ -57,15 +57,15 @@ public class SpringBatchConfig {
     }
  
     @Bean
-    public LineMapper<HiringCandidates> lineMapper() {
-    	 DefaultLineMapper<HiringCandidates> defaultLineMapper = new DefaultLineMapper<>();
+    public LineMapper<CandidateHiredDTO> lineMapper() {
+    	 DefaultLineMapper<CandidateHiredDTO> defaultLineMapper = new DefaultLineMapper<>();
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
 
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setStrict(false);
         lineTokenizer.setNames("id","firstName","middleName","lastName","email","mobileNum","hiredCity","parentName","parentMobile","temporaryAddress","parentOccupation","parentAnnualSalary","permanentAddress");
-        BeanWrapperFieldSetMapper<HiringCandidates> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        fieldSetMapper.setTargetType(HiringCandidates.class);
+        BeanWrapperFieldSetMapper<CandidateHiredDTO> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(CandidateHiredDTO.class);
 
         defaultLineMapper.setLineTokenizer(lineTokenizer);
         defaultLineMapper.setFieldSetMapper(fieldSetMapper);

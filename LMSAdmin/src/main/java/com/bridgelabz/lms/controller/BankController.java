@@ -65,20 +65,6 @@ public class BankController {
 	}
 	
 
-	
-//	@PostMapping("/upload")
-//	  public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
-//	    String message = "";
-//	    try {
-//	      baknservice.store(file);
-//
-//	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
-//	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-//	    } catch (Exception e) {
-//	      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-//	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-//	    }
-//	  }
 	@PostMapping(value = "/upload/{id}", consumes = { "multipart/form-data" })
 	@ApiOperation(value = "Upload Documents", response = Response.class)
 	public ResponseEntity<Response> addBankDetail(String token, @PathVariable int id,

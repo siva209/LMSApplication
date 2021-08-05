@@ -2,11 +2,14 @@ package com.bridgelabz.lms.dto;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Id;
+
 import lombok.Data;
 
 @Data
 public class CandidateHiredDTO {
-	
+	@Id
+	 private Integer id;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -19,16 +22,7 @@ public class CandidateHiredDTO {
 	private String parentOccupation;
 	private String parentAnnualSalary;
 	private String permanentAddress;
-	private String profileImage;
-	private String folderId;
-	private String status;
 	private LocalDateTime creatorStamp;
 	private LocalDateTime updateStamp;
-	int bank_Id;
-	int qualification_Id;
-	//private String bankInfo;
-	//private String qualificationInfo;
-  
-	
 
 }
