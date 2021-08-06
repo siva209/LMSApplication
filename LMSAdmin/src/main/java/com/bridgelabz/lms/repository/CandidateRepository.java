@@ -25,6 +25,9 @@ public interface CandidateRepository extends JpaRepository<HiringCandidate, Long
 
 
 	Optional<HiringCandidate> findAllByemail(String email);
+
+
+//	Optional<HiringCandidate> findByEmailid(String emailid);
 	
 
 }

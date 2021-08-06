@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.lms.dto.StatusDTO;
 import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.service.IStatusService;
 import com.bridgelabz.lms.service.StatusServiceImpl;
 
 @RestController
 public class StatusController {
 	
 	@Autowired
-	private StatusServiceImpl lmsStatusService;
+	private IStatusService lmsStatusService;
 	
 	
 	@PostMapping("/addstatusDetails")

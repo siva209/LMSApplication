@@ -27,6 +27,7 @@ import com.bridgelabz.lms.model.FileDB;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.response.ResponseFile;
 import com.bridgelabz.lms.response.ResponseMessage;
+import com.bridgelabz.lms.service.IBankInfoService;
 import com.bridgelabz.lms.service.BankServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -34,32 +35,32 @@ import io.swagger.annotations.ApiOperation;
 public class BankController {
 	
 	@Autowired
-	private BankServiceImpl baknservice;
+	private IBankInfoService bankService;
 	
 
 	@PostMapping("/addbankDetails")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Response> addingBankDetails(String token,@RequestBody BankDto dto,BindingResult result){
-		Response respDTO = baknservice.addingBankDetails(token,dto);
+		Response respDTO = bankService.addingBankDetails(token,dto);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getallbankDetails")
 	public ResponseEntity<Response> getStatus(String token) {
-		Response respDTO = baknservice.getAllBankDeatils(token);
+		Response respDTO = bankService.getAllBankDeatils(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatebankdetails/{id}")
 	public ResponseEntity<Response> updateBankInfo(String token,@PathVariable Integer id, @RequestBody UpdateBankDto dto,BindingResult result) {
-		Response respDTO = baknservice.updateBankInfo(token,id, dto);
+		Response respDTO = bankService.updateBankInfo(token,id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletebankdetails/{id}")
 	public ResponseEntity<Response> deleteBankDetails(String token,@PathVariable Integer id) {
-		baknservice.deleteBankDetails(token,id);
+		bankService.deleteBankDetails(token,id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
@@ -70,7 +71,7 @@ public class BankController {
 	public ResponseEntity<Response> addBankDetail(String token, @PathVariable int id,
 			@RequestParam("panFile") MultipartFile panFile, @RequestParam("AadharFile") MultipartFile AadharFile,
 			@RequestParam("passBookFile") MultipartFile passBookFile) throws  Exception {
-		Response respDTO = baknservice.store(token, id, panFile, AadharFile, passBookFile);
+		Response respDTO = bankService.store(token, id, panFile, AadharFile, passBookFile);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	  

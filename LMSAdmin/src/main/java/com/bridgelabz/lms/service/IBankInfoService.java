@@ -12,7 +12,7 @@ import com.bridgelabz.lms.dto.UpdateBankDto;
 import com.bridgelabz.lms.model.FileDB;
 import com.bridgelabz.lms.response.Response;
 @Service
-public interface BankInfoService {
+public interface IBankInfoService {
 	public Response addingBankDetails(String token,BankDto dto);
 	public Response getAllBankDeatils(String token);
 	public Response updateBankInfo(String token,Integer id,UpdateBankDto dto);

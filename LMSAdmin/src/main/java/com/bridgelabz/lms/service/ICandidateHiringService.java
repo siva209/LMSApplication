@@ -6,7 +6,7 @@ import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.model.HiringCandidate;
 import com.bridgelabz.lms.response.Response;
 @Service
-public interface CandidateHiringService {
+public interface ICandidateHiringService {
 	public Response registerCandidate(String token,CandidateHiredDTO dto);
     public Response getAllHiringCandidate(String token);
     public Response getCandidate(String token,Long id);
@@ -16,5 +16,6 @@ public interface CandidateHiringService {
     public  Response updateHiringStatus(String token, Long id, String keyText);
     public Response jobOfferNotificationMail(String token, String email);
     public  Response getCount(String token);
+//    public boolean checkuser(String emailid);
     
 }

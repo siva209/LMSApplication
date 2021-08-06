@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.lms.dto.QualificationDto;
 import com.bridgelabz.lms.dto.UpdateQualificationDto;
 import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.service.IQualificationService;
 import com.bridgelabz.lms.service.QualificationServiceImpl;
 @RestController
 public class QualificationController {
 	@Autowired
-	private QualificationServiceImpl qualificationservice;
+	private IQualificationService qualificationservice;
 	
 
 	@PostMapping("/addQualificationDetails")

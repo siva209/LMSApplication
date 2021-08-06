@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
@@ -25,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class CandidateServiceImpl implements CandidateHiringService {
+public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Autowired
 	private BCryptPasswordEncoder pwdencoder;
@@ -36,6 +38,10 @@ public class CandidateServiceImpl implements CandidateHiringService {
 	private Jms jms;
 	@Autowired
 	private ModelMapper modelmapper;
+	
+	@Autowired
+	private RestTemplate restTemplates;
+	
 
 	@Autowired
 	private CandidateRepository candidaterrepo;
@@ -214,7 +220,24 @@ public class CandidateServiceImpl implements CandidateHiringService {
 				}
 				return new Response("Number of Candidates : ", count,201,"true");
 			}
-		}
+}
+
+//	@Override
+//	public boolean checkuser(String emailid) {
+//	
+//			Optional<HiringCandidate> user=candidaterrepo.findByEmailid(emailid);
+//			if(user.isEmpty()) {
+//				return false;
+//			}
+//			else 
+//			{
+//				return true;
+//			}
+//			 
+//		}
+//
+//	}
+	
 	
 
 

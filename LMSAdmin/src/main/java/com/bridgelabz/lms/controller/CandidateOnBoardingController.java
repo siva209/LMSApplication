@@ -15,43 +15,45 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
 import com.bridgelabz.lms.response.Response;
+import com.bridgelabz.lms.service.ICandidateOnBoardingService;
 import com.bridgelabz.lms.service.CandidateOnBoardingServiceImpl;
 
 @RestController
 public class CandidateOnBoardingController {
+	
 	@Autowired
-	private CandidateOnBoardingServiceImpl onboardingserviceimpl;
+	private ICandidateOnBoardingService candidateOnBoardservice;
 	
 	
 	@PostMapping("/OnBoarding")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Response>createUser(String token,@RequestBody CandidatEOnBoardingDTO dto,BindingResult result){
-		Response response=onboardingserviceimpl.createUser(token,dto);
+		Response response=candidateOnBoardservice.createUser(token,dto);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	 
 	
 	@GetMapping("/getallOnboardingCandidates")
 	public ResponseEntity<Response> getAllOnBoardingcandidates(String token) {
-		Response respDTO = onboardingserviceimpl.getAllOnBoardingcandidates(token);
+		Response respDTO = candidateOnBoardservice.getAllOnBoardingcandidates(token);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatecandidateOnBoard/{id}")
 	public ResponseEntity<Response> updateOnBoardingCandidate(String token,@PathVariable Long id, @RequestBody CandidatEOnBoardUpdateDTO dto,BindingResult result) {
-		Response respDTO = onboardingserviceimpl.updateOnBoardingCandidate(token, id, dto);
+		Response respDTO = candidateOnBoardservice.updateOnBoardingCandidate(token, id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	@PutMapping("/updatestatusonboardHiring/{id}/{keyText}")
 	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
-		Response respDTO = onboardingserviceimpl.updateStatus(token, id, keyText);
+		Response respDTO = candidateOnBoardservice.updateStatus(token, id, keyText);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	@DeleteMapping("/deleteonboardingcandidate/{id}")
 	public ResponseEntity<Response> deleteOnBoardingCandidateById(String token,@PathVariable Long id) {
-		onboardingserviceimpl.deleteOnBoardingCandidateById(token, id);
+		candidateOnBoardservice.deleteOnBoardingCandidateById(token, id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
@@ -59,7 +61,7 @@ public class CandidateOnBoardingController {
 
 	@GetMapping("/getonboardcount")
 	public ResponseEntity<Response> getcount(String token) {
-		Response respDTO = onboardingserviceimpl.getCount(token);
+		Response respDTO = candidateOnBoardservice.getCount(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 }

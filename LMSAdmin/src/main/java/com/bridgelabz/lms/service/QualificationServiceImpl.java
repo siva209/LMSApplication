@@ -13,7 +13,7 @@ import com.bridgelabz.lms.model.QualificationInfo;
 import com.bridgelabz.lms.repository.QualificationRepository;
 import com.bridgelabz.lms.response.Response;
 @Service
-public class QualificationServiceImpl implements QualificationService{
+public class QualificationServiceImpl implements IQualificationService{
 	@Autowired
 	private ModelMapper modelmapper;
 	

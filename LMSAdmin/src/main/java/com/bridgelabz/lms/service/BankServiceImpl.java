@@ -32,7 +32,7 @@ import com.bridgelabz.lms.model.FileDB;
 import com.bridgelabz.lms.repository.BankRepository;
 import com.bridgelabz.lms.response.Response;
 @Service
-public class BankServiceImpl implements BankInfoService {
+public class BankServiceImpl implements IBankInfoService {
 	
 	@Autowired
 	private ModelMapper modelmapper;
