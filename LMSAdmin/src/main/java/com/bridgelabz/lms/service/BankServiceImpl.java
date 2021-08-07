@@ -49,23 +49,23 @@ public class BankServiceImpl implements IBankInfoService {
 	
 	@Override
 	public Response addingBankDetails(String token,BankDto dto) {
-		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
-		System.out.println("Value="+verifyEmail);
-		if(verifyEmail != null) {
+		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		BankInfo bankinfo=modelmapper.map(dto, BankInfo.class);
 		System.out.println(bankinfo);
 		bankrepo.save(bankinfo);
-		return new Response("Added Status Details: ", bankinfo,201,"true");
+		return new Response("Added Bank Details: ", bankinfo,201,"true");
 	}else {
-		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		throw new CandidateRegistrationException("invalid bank details", null, 400, "true");
 			}
 	}
 
 	@Override
 	public Response getAllBankDeatils(String token) {
-		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
-		System.out.println("Value="+verifyEmail);
-		if(verifyEmail != null) {
+		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		// int Id = tokenutil.decodeToken(token);
 		List<BankInfo> isPresent = bankrepo.findAll();
 		System.out.println(isPresent);
@@ -80,9 +80,9 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public Response updateBankInfo(String token,Integer id, UpdateBankDto dto) {
 		// int Id = tokenutil.decodeToken(token);
-		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
-		System.out.println("Value="+verifyEmail);
-		if(verifyEmail != null) {
+		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setAadharNumber(dto.getAadharNumber());
@@ -110,9 +110,9 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public void deleteBankDetails(String token,Integer id) {
 		// int Id = tokenutil.decodeToken(token);
-		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
-		System.out.println("Value="+verifyEmail);
-		if(verifyEmail != null) {
+		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			bankrepo.deleteById(id);
@@ -125,9 +125,9 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public Response store(String token, int id, MultipartFile panFile, MultipartFile aadharFile,
 			MultipartFile passBookFile) throws Exception {
-		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
-		System.out.println("Value="+verifyEmail);
-		if(verifyEmail != null) {
+		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 

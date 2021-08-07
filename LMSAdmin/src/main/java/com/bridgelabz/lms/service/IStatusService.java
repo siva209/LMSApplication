@@ -5,8 +5,8 @@ import com.bridgelabz.lms.response.Response;
 
 @Service
 public interface IStatusService {
-	public Response addingStatusDetails(StatusDTO dto);
-	public Response getAllStatus();
-	public Response updateCandidateStatus(Long id,String  keyText);
-	public void deleteCandidaStatusd(Long id) ;
+	public Response addingStatusDetails(String token,StatusDTO dto);
+	public Response getAllStatus(String token);
+	public Response updateCandidateStatus(String token,Long id,String  keyText);
+	public void deleteCandidaStatusd(String token,Long id) ;
 }

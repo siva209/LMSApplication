@@ -22,28 +22,28 @@ public class QualificationController {
 	private IQualificationService qualificationservice;
 	
 
-	@PostMapping("/addQualificationDetails")
+	@PostMapping("/addQualificationDetails/{token}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response> addingQualificationDetails(@RequestBody QualificationDto dto,BindingResult result){
-		Response respDTO = qualificationservice.addingQualificationDetails(dto);
+	public ResponseEntity<Response> addingQualificationDetails(@PathVariable String token,  @RequestBody QualificationDto dto,BindingResult result){
+		Response respDTO = qualificationservice.addingQualificationDetails(token,dto);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getallqualificationDetails")
-	public ResponseEntity<Response> getAllQualificationDeatils() {
-		Response respDTO = qualificationservice.getAllQualificationDeatils();
+	@GetMapping("/getallqualificationDetails/{token}")
+	public ResponseEntity<Response> getAllQualificationDeatils(@PathVariable String token) {
+		Response respDTO = qualificationservice.getAllQualificationDeatils(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateQualificationdetails/{id}")
-	public ResponseEntity<Response> updateQualification(@PathVariable Integer id, @RequestBody UpdateQualificationDto dto,BindingResult result) {
-		Response respDTO = qualificationservice.updateQualification(id, dto);
+	@PutMapping("/updateQualificationdetails/{token}/{id}")
+	public ResponseEntity<Response> updateQualification(@PathVariable String token,  @PathVariable Integer id, @RequestBody UpdateQualificationDto dto,BindingResult result) {
+		Response respDTO = qualificationservice.updateQualification(token,id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	@DeleteMapping("/deletequalification/{id}")
-    public ResponseEntity<Response> deleteQualification(@PathVariable Integer id) {
-	qualificationservice.deleteQualification(id);
+	@DeleteMapping("/deletequalification/{token}/{id}")
+    public ResponseEntity<Response> deleteQualification(@PathVariable String token,  @PathVariable Integer id) {
+	qualificationservice.deleteQualification(token,id);
 	Response respDTO = new Response("Deleted Contact with id : ", id);
 	return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 }

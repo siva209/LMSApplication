@@ -23,29 +23,29 @@ public class StatusController {
 	private IStatusService lmsStatusService;
 	
 	
-	@PostMapping("/addstatusDetails")
+	@PostMapping("/addstatusDetails/{token}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response> addingStatusDetails(@RequestBody StatusDTO dto,BindingResult result){
-		Response respDTO = lmsStatusService.addingStatusDetails(dto);
+	public ResponseEntity<Response> addingStatusDetails(@PathVariable String token,@RequestBody StatusDTO dto,BindingResult result){
+		Response respDTO = lmsStatusService.addingStatusDetails(token,dto);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/getstatus")
-	public ResponseEntity<Response> getStatus() {
-		Response respDTO = lmsStatusService.getAllStatus();
+	@GetMapping("/getstatus/{token}")
+	public ResponseEntity<Response> getStatus(@PathVariable String token) {
+		Response respDTO = lmsStatusService.getAllStatus(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@PutMapping("/updatestatus/{id}/{keyText}")
-	public ResponseEntity<Response> updateCandidateStatus(@RequestBody Long id ,String  keyText) {
-		Response respDTO = lmsStatusService.updateCandidateStatus(id, keyText);
+	@PutMapping("/updatestatus/{token}/{id}/{keyText}")
+	public ResponseEntity<Response> updateCandidateStatus(@PathVariable String token,@RequestBody Long id ,String  keyText) {
+		Response respDTO = lmsStatusService.updateCandidateStatus(token,id, keyText);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	public void deleteCandidaStatusd(@PathVariable Long id)  {
-		lmsStatusService.deleteCandidaStatusd(id);
+	@DeleteMapping("/delete/{token}/{id}")
+	public void deleteCandidaStatusd(@PathVariable String token,@PathVariable Long id)  {
+		lmsStatusService.deleteCandidaStatusd(token,id);
 	}
 	
 	
