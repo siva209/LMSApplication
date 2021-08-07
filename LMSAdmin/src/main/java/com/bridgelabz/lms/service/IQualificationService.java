@@ -5,9 +5,9 @@ import com.bridgelabz.lms.dto.UpdateQualificationDto;
 import com.bridgelabz.lms.response.Response;
 @Service
 public interface IQualificationService {
-	public Response addingQualificationDetails(QualificationDto dto);
-	public Response getAllQualificationDeatils();
-	public Response updateQualification(Integer id,UpdateQualificationDto dto);
-	public void deleteQualification(Integer id) ;
+	public Response addingQualificationDetails(String token,QualificationDto dto);
+	public Response getAllQualificationDeatils(String token);
+	public Response updateQualification(String token,Integer id,UpdateQualificationDto dto);
+	public void deleteQualification(String token,Integer id) ;
 
 }
