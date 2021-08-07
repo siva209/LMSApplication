@@ -40,7 +40,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	private ModelMapper modelmapper;
 	
 	@Autowired
-	private RestTemplate restTemplates;
+	private RestTemplate restTemplate;
 	
 
 	@Autowired
@@ -60,13 +60,23 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response registerCandidate(String token,CandidateHiredDTO dto) {
-		//int Id = tokenutil.decodeToken(token);
-
+//		int Id = tokenutil.decodeToken(token);
+		
+		
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		HiringCandidate AddDetails = modelmapper.map(dto, HiringCandidate.class);
 		System.out.println(AddDetails);
 		candidaterrepo.save(AddDetails);
 		return new Response("Added Status: ", AddDetails,201,"true");
-	}
+		}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+			
+		}
+
 	
 	/**
 	 * Get All HiringCandidates: used to display all the hiring candidates in the table
@@ -76,9 +86,16 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response getAllHiringCandidate(String token) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		//int Id = tokenutil.decodeToken(token);
 		List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
 		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
+		}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
 	}
 	
 	/**
@@ -92,10 +109,18 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	@Override
 	public Response getCandidate(String token, Long id) {
 		// int Id = tokenutil.decodeToken(token);
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 				Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 				HiringCandidate candidates = isUserPresent.get();
 				return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
 			}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+	}
+		
 	
 	/**
 	 * Get  HiringCandidates by Profileid:  get the  hiring candidates based upon candidate  profileid in the table
@@ -118,7 +143,10 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	
 	@Override
-	public Response updateCandidate(Long id, UpdateHiringDto dto) {
+	public Response updateCandidate(String token,Long id, UpdateHiringDto dto) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setFirstName(dto.getFirstName());
@@ -147,8 +175,11 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		} else {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
 	}
-
+	}
 	
 	/**
 	 * Delete User: used to delete the present user
@@ -158,6 +189,9 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Override
 	public void deleteCandidateHiringById(String token,Long id) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		// int Id = tokenutil.decodeToken(token);
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
@@ -166,17 +200,25 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 			 new CandidateRegistrationException("Candidate to be Delete Not found",null,404,"true");
 		}
 	}
+	}
 	
 	@Override
 	public Response updateHiringStatus(String token, Long id, String keyText) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setStatus(keyText);
 			candidaterrepo.save(isUserPresent.get());
 			return new Response("Candidate status updated Successfully ", isUserPresent, 201, "true");
-		} else {
+		}else {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+	}
 	}
 	/**
 	 * Verify Eamil : used to verify the email whether sent link is correct or not
@@ -186,6 +228,9 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Override
 	public Response jobOfferNotificationMail(String token, String email) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		// int Id = tokenutil.decodeToken(token);
 				Optional<HiringCandidate> isUserPresent = candidaterrepo.findAllByemail(email);
 				boolean emailmatch = isUserPresent.get().getEmail().matches(email);
@@ -196,11 +241,15 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 					System.out.println(body);
 					jms.sendEmail(isUserPresent.get().getEmail(), "Job Offer", body);
 					return new Response("Successfully send notification ", isUserPresent, 201, "true");
-				} else {
+				} 
+				else {
 					throw new CandidateRegistrationException("invalid details", null, 400, "true");
 				}
+				}else
+				{
+				throw new CandidateRegistrationException("invalid details", null, 400, "true");
 			}
-
+			}
 
 	/**
 	 * Count Hiring Candidates: calculate the hiring candidates 
@@ -211,6 +260,9 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response getCount(String token) {
+		HiringCandidate verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		// int Id = tokenutil.decodeToken(token);
 				List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
 				long count = 0;
@@ -220,25 +272,12 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 				}
 				return new Response("Number of Candidates : ", count,201,"true");
 			}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+	}
 }
 
-//	@Override
-//	public boolean checkuser(String emailid) {
-//	
-//			Optional<HiringCandidate> user=candidaterrepo.findByEmailid(emailid);
-//			if(user.isEmpty()) {
-//				return false;
-//			}
-//			else 
-//			{
-//				return true;
-//			}
-//			 
-//		}
-//
-//	}
-	
-	
 
 
 

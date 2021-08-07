@@ -25,42 +25,42 @@ public class CandidateOnBoardingController {
 	private ICandidateOnBoardingService candidateOnBoardservice;
 	
 	
-	@PostMapping("/OnBoarding")
+	@PostMapping("/OnBoarding/{token}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response>createUser(String token,@RequestBody CandidatEOnBoardingDTO dto,BindingResult result){
+	public ResponseEntity<Response>createUser(@PathVariable String token,@RequestBody CandidatEOnBoardingDTO dto,BindingResult result){
 		Response response=candidateOnBoardservice.createUser(token,dto);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	 
 	
-	@GetMapping("/getallOnboardingCandidates")
-	public ResponseEntity<Response> getAllOnBoardingcandidates(String token) {
+	@GetMapping("/getallOnboardingCandidates/{token}")
+	public ResponseEntity<Response> getAllOnBoardingcandidates(@PathVariable String token) {
 		Response respDTO = candidateOnBoardservice.getAllOnBoardingcandidates(token);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@PutMapping("/updatecandidateOnBoard/{id}")
-	public ResponseEntity<Response> updateOnBoardingCandidate(String token,@PathVariable Long id, @RequestBody CandidatEOnBoardUpdateDTO dto,BindingResult result) {
+	@PutMapping("/updatecandidateOnBoard/{token}/{id}")
+	public ResponseEntity<Response> updateOnBoardingCandidate(@PathVariable  String token,@PathVariable Long id, @RequestBody CandidatEOnBoardUpdateDTO dto,BindingResult result) {
 		Response respDTO = candidateOnBoardservice.updateOnBoardingCandidate(token, id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	@PutMapping("/updatestatusonboardHiring/{id}/{keyText}")
-	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
+	@PutMapping("/updatestatusonboardHiring/{token}/{id}/{keyText}")
+	public ResponseEntity<Response> updatestatusHiring(@PathVariable  String token, @PathVariable Long id,@PathVariable String keyText)  {                           
 		Response respDTO = candidateOnBoardservice.updateStatus(token, id, keyText);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	@DeleteMapping("/deleteonboardingcandidate/{id}")
-	public ResponseEntity<Response> deleteOnBoardingCandidateById(String token,@PathVariable Long id) {
+	@DeleteMapping("/deleteonboardingcandidate/{token}/{id}")
+	public ResponseEntity<Response> deleteOnBoardingCandidateById(@PathVariable String token,@PathVariable Long id) {
 		candidateOnBoardservice.deleteOnBoardingCandidateById(token, id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 
-	@GetMapping("/getonboardcount")
-	public ResponseEntity<Response> getcount(String token) {
+	@GetMapping("/getonboardcount/{token}")
+	public ResponseEntity<Response> getcount(@PathVariable String token) {
 		Response respDTO = candidateOnBoardservice.getCount(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}

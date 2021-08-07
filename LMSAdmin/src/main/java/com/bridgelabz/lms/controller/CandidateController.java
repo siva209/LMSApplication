@@ -33,22 +33,23 @@ public class CandidateController {
 	 * @throws InvalidDetailsException 
 	 */
 	
-	@PostMapping("/registeruser")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Response> registerUser(String token,@RequestBody CandidateHiredDTO dto,BindingResult result) {
+	@PostMapping("/registeruser/{token}")
+	
+//	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Response> registerUser(@PathVariable String token,@RequestBody CandidateHiredDTO dto,BindingResult result) {
 		Response response=candidateHiringService.registerCandidate(token, dto);
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
-	@GetMapping("/getallHiredCandidatesss")
-	public ResponseEntity<Response> getAllHiredcandidates(String token) {
+	@GetMapping("/getallHiredCandidatesss/{token}")
+	public ResponseEntity<Response> getAllHiredcandidates(@PathVariable String token) {
 		Response respDTO = candidateHiringService.getAllHiringCandidate(token);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 
-	@GetMapping("/getcandidatehiring/{id}")
-	public ResponseEntity<Response> getCandidate(String token, @PathVariable Long id) {
+	@GetMapping("/getcandidatehiring/{token}/{id}")
+	public ResponseEntity<Response> getCandidate(@PathVariable String token, @PathVariable Long id) {
 		Response respDTO = candidateHiringService.getCandidate(token, id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
@@ -60,34 +61,37 @@ public class CandidateController {
 	}
 	}
 	
-	@PutMapping("/updatehiring/{id}")
-	public ResponseEntity<Response> updateCandidate(@PathVariable Long id, @RequestBody UpdateHiringDto dto,BindingResult result) {
-		Response respDTO = candidateHiringService.updateCandidate(id, dto);
+	@PutMapping("/updatehiring/{token}/{id}")
+	public ResponseEntity<Response> updateCandidate(@PathVariable String token ,@PathVariable Long id, @RequestBody UpdateHiringDto dto,BindingResult result) {
+		Response respDTO = candidateHiringService.updateCandidate(token,id, dto);
 		System.out.println(respDTO);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
-	@PutMapping("/updatestatusHiring/{id}/{keyText}")
-	public ResponseEntity<Response> updatestatusHiring(String token, @PathVariable Long id,@PathVariable String keyText)  {                           
+	
+	
+	@PutMapping("/updatestatusHiring/{token}/{id}/{keyText}")
+	public ResponseEntity<Response> updatestatusHiring(@PathVariable String token, @PathVariable Long id,@PathVariable String keyText)  {                           
 		Response respDTO = candidateHiringService.updateHiringStatus(token, id, keyText);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deletehiring/{id}")
-	public ResponseEntity<Response> deleteCandidateHiringById(String token,@PathVariable Long id) {
+	@DeleteMapping("/deletehiring/{token}/{id}")
+	public ResponseEntity<Response> deleteCandidateHiringById(@PathVariable String token,@PathVariable Long id) {
 		candidateHiringService.deleteCandidateHiringById(token,id);
 		Response respDTO = new Response("Deleted Contact with id : ", id);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
 
-	@PostMapping("/offerMail")
-	public ResponseEntity<Response> jobOfferNotificationMail(String token, @RequestBody String email){
+	@PostMapping("/offerMail/{token}")
+	public ResponseEntity<Response> jobOfferNotificationMail(@PathVariable String token, @RequestBody String email){
 		Response respDTO = candidateHiringService.jobOfferNotificationMail(token, email);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getcount")
-	public ResponseEntity<Response> getcount(String token) {
+	
+	@GetMapping("/getcount/{token}")
+	public ResponseEntity<Response> getcount(@PathVariable String token) {
 		Response respDTO = candidateHiringService.getCount(token);
 		return new ResponseEntity<Response>(respDTO, HttpStatus.OK);
 	}

@@ -11,6 +11,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
@@ -28,6 +29,7 @@ import com.bridgelabz.lms.dto.BankDto;
 import com.bridgelabz.lms.dto.UpdateBankDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
 import com.bridgelabz.lms.model.BankInfo;
+import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.model.FileDB;
 import com.bridgelabz.lms.repository.BankRepository;
 import com.bridgelabz.lms.response.Response;
@@ -40,25 +42,47 @@ public class BankServiceImpl implements IBankInfoService {
 	@Autowired
 	private BankRepository bankrepo;
 	
+	 
+	  @Autowired
+		private RestTemplate restTemplate;
+		
+	
 	@Override
 	public Response addingBankDetails(String token,BankDto dto) {
+		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		BankInfo bankinfo=modelmapper.map(dto, BankInfo.class);
 		System.out.println(bankinfo);
 		bankrepo.save(bankinfo);
 		return new Response("Added Status Details: ", bankinfo,201,"true");
+	}else {
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			}
 	}
 
 	@Override
 	public Response getAllBankDeatils(String token) {
+		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		// int Id = tokenutil.decodeToken(token);
 		List<BankInfo> isPresent = bankrepo.findAll();
 		System.out.println(isPresent);
 		return new Response("List of all candidates Bank Details  are",isPresent,200,"true");
 	}
-
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+	}
+	
+	
 	@Override
 	public Response updateBankInfo(String token,Integer id, UpdateBankDto dto) {
 		// int Id = tokenutil.decodeToken(token);
+		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setAadharNumber(dto.getAadharNumber());
@@ -77,11 +101,18 @@ public class BankServiceImpl implements IBankInfoService {
 		} else {
 			throw new CandidateRegistrationException("invalid bank details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
 	}
-
+	}
+	
 	@Override
 	public void deleteBankDetails(String token,Integer id) {
 		// int Id = tokenutil.decodeToken(token);
+		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			bankrepo.deleteById(id);
@@ -89,10 +120,14 @@ public class BankServiceImpl implements IBankInfoService {
 			 new CandidateRegistrationException("Candidate Bank Details to be Delete Not found",null,404,"true");
 		}
 	}
+	}
 
 	@Override
 	public Response store(String token, int id, MultipartFile panFile, MultipartFile aadharFile,
 			MultipartFile passBookFile) throws Exception {
+		BankInfo verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 
@@ -110,7 +145,12 @@ public class BankServiceImpl implements IBankInfoService {
 		} else {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
 	}
+	}
+
 
 //	@Override
 //	public FileDB getFile(String id) {

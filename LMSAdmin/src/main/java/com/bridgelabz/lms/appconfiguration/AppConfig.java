@@ -4,6 +4,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
+
 import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.model.Status;
 import com.bridgelabz.lms.util.JwtUtil;
@@ -25,6 +27,11 @@ public class AppConfig {
 	public CandidateOnboardingDetails onboardDetails() {
 		return new CandidateOnboardingDetails();
 		
+	}
+	@Bean
+	
+public RestTemplate restTemplate() {
+		return new  RestTemplate();
 	}
 	@Bean
 	public Status statusdetails() {

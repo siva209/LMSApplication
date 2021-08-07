@@ -4,13 +4,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
+import com.bridgelabz.lms.dto.CandidateHiredDTO;
 
 import java.util.Iterator;
 import java.util.List;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
 import com.bridgelabz.lms.model.CandidateOnboardingDetails;
+import com.bridgelabz.lms.model.HiringCandidate;
 import com.bridgelabz.lms.repository.CandidateOnBoardingRepository;
 import com.bridgelabz.lms.response.Response;
 import com.bridgelabz.lms.util.Jms;
@@ -34,6 +38,10 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
   @Autowired
   private CandidateOnboardingDetails details;
   
+  @Autowired
+	private RestTemplate restTemplate;
+	
+  
 	
 	/**
 	 * Get All OnBoardingCandidates: used to display all the OnBoardingCandidates in the table
@@ -44,10 +52,17 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
   
 	@Override
 	public Response getAllOnBoardingcandidates(String token) {
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		//int Id = tokenutil.decodeToken(token);
 		List<CandidateOnboardingDetails> isPresent = candidateonboardrepo.findAll();
 		System.out.println(isPresent);
 		return new Response("List of Onboarding Candidates are",isPresent,200,"true");
+	}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
 	}
 	
 	/**
@@ -74,13 +89,22 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	
 	@Override
 	public Response createUser(String token,CandidatEOnBoardingDTO dto) {
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		CandidateOnboardingDetails candidateDetails = modelmapper.map(dto, CandidateOnboardingDetails.class);
 		System.out.println(candidateDetails);
 		candidateonboardrepo.save(candidateDetails);
 		return new Response("Added Status: ", candidateDetails,201,"true");
 	}
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
+			
+		}
 	
-
+		
+		
 	/**
 	 * Update OnBoardingCandidates : set new data for OnBoardingCandidates
 	 * @param CandidatEOnBoardUpdateDTO
@@ -89,6 +113,9 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response updateOnBoardingCandidate(String token,Long id, CandidatEOnBoardUpdateDTO dto) {
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setFirstName(dto.getFirstName());
@@ -103,11 +130,16 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 			System.out.println(isUserPresent);
 			candidateonboardrepo.save(isUserPresent.get());
 			return new Response("Updated OnBoarding Candidates  Successfully", isUserPresent, 201, "true");
-		} else {
-			throw new CandidateRegistrationException("invalid OnBoarding Candidates details", null, 400, "true");
+		} 
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
 	}
-
+	}
+	
 	/**
 	 * Delete OnBoardingCandidates: used to delete the present user
 	 * @param id
@@ -117,7 +149,9 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	@Override
 	public void deleteOnBoardingCandidateById(String token,Long id) {
 		// int Id = tokenutil.decodeToken(token);	
-
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			candidateonboardrepo.deleteById(id);
@@ -125,7 +159,8 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 			 new CandidateRegistrationException("Candidate to be Delete Not found",null,404,"true");
 		}
 	}
-
+	}
+	
 	/**
 	 * Update OnBoardingCandidates : set new keyText for OnBoardingCandidates
 	 * @param id,KeyText
@@ -135,15 +170,24 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response updateStatus(String token, Long id, String keyText) {
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setStatus(keyText);
 			candidateonboardrepo.save(isUserPresent.get());
 			return new Response("Candidate status updated Successfully ", isUserPresent, 201, "true");
-		} else {
+		} 
+		else {
 			throw new CandidateRegistrationException("invalid details", null, 400, "true");
 		}
+		}else
+		{
+		throw new CandidateRegistrationException("invalid details", null, 400, "true");
 	}
+	}
+
 	/**
 	 * Count OnBoardingCandidates : calculate the OnBoardingCandidates
 	 * @param id
@@ -153,6 +197,10 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	@Override
 	public Response getCount(String token) {
 		// int Id = tokenutil.decodeToken(token);
+		
+		CandidateOnboardingDetails verifyEmail = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verifyEmail);
+		if(verifyEmail != null) {
 		List<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findAll();
 		long count = 0;
 		for (Iterator iterator = isUserPresent.iterator(); iterator.hasNext();) {
@@ -162,8 +210,9 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 		return new Response("Number of Candidates : ", count,201,"true");
 	}
 
-
+		else {
+			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+		}
 	}
-
-
+}
 
