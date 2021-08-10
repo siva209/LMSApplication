@@ -63,7 +63,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 //		int Id = tokenutil.decodeToken(token);
 		
 		
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		HiringCandidate AddDetails = modelmapper.map(dto, HiringCandidate.class);
@@ -86,7 +86,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response getAllHiringCandidate(String token) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		//int Id = tokenutil.decodeToken(token);
@@ -109,7 +109,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	@Override
 	public Response getCandidate(String token, Long id) {
 		// int Id = tokenutil.decodeToken(token);
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 				Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
@@ -144,7 +144,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response updateCandidate(String token,Long id, UpdateHiringDto dto) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
@@ -189,7 +189,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Override
 	public void deleteCandidateHiringById(String token,Long id) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		// int Id = tokenutil.decodeToken(token);
@@ -204,7 +204,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response updateHiringStatus(String token, Long id, String keyText) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
@@ -228,7 +228,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Override
 	public Response jobOfferNotificationMail(String token, String email) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		// int Id = tokenutil.decodeToken(token);
@@ -260,7 +260,7 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response getCount(String token) {
-		HiringCandidate verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, HiringCandidate.class);
+		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		// int Id = tokenutil.decodeToken(token);
