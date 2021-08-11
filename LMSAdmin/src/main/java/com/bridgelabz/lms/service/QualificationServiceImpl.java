@@ -28,7 +28,7 @@ public class QualificationServiceImpl implements IQualificationService{
 	
 	@Override
 	public Response addingQualificationDetails(String token,QualificationDto dto) {
-		QualificationInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, QualificationInfo.class);
+		QualificationInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, QualificationInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		QualificationInfo qualificationDetails=modelmapper.map(dto, QualificationInfo.class);
@@ -45,7 +45,7 @@ public class QualificationServiceImpl implements IQualificationService{
 
 	@Override
 	public Response getAllQualificationDeatils(String token) {
-		QualificationInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, QualificationInfo.class);
+		QualificationInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, QualificationInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		List<QualificationInfo> isPresent = qualificationrepo.findAll();
@@ -62,7 +62,7 @@ public class QualificationServiceImpl implements IQualificationService{
 
 	@Override
 	public Response updateQualification(String token,Integer id, UpdateQualificationDto dto) {
-		QualificationInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, QualificationInfo.class);
+		QualificationInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, QualificationInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<QualificationInfo> isUserPresent = qualificationrepo.findById(id);
@@ -89,7 +89,7 @@ public class QualificationServiceImpl implements IQualificationService{
 
 	@Override
 	public void deleteQualification(String token,Integer id) {
-		QualificationInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, QualificationInfo.class);
+		QualificationInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, QualificationInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<QualificationInfo> isUserPresent = qualificationrepo.findById(id);

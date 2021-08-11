@@ -25,6 +25,9 @@ public class CandidateController {
 	
 	@Autowired
 	private ICandidateHiringService candidateHiringService;
+	
+	
+	
 
 	/**
 	 * Register User : used to register the user

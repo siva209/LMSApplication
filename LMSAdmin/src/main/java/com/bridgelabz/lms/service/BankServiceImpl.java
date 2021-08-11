@@ -49,7 +49,7 @@ public class BankServiceImpl implements IBankInfoService {
 	
 	@Override
 	public Response addingBankDetails(String token,BankDto dto) {
-		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		BankInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, BankInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		BankInfo bankinfo=modelmapper.map(dto, BankInfo.class);
@@ -63,7 +63,7 @@ public class BankServiceImpl implements IBankInfoService {
 
 	@Override
 	public Response getAllBankDeatils(String token) {
-		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		BankInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, BankInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		// int Id = tokenutil.decodeToken(token);
@@ -80,7 +80,7 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public Response updateBankInfo(String token,Integer id, UpdateBankDto dto) {
 		// int Id = tokenutil.decodeToken(token);
-		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		BankInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, BankInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
@@ -110,7 +110,7 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public void deleteBankDetails(String token,Integer id) {
 		// int Id = tokenutil.decodeToken(token);
-		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		BankInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, BankInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);
@@ -125,7 +125,7 @@ public class BankServiceImpl implements IBankInfoService {
 	@Override
 	public Response store(String token, int id, MultipartFile panFile, MultipartFile aadharFile,
 			MultipartFile passBookFile) throws Exception {
-		BankInfo verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, BankInfo.class);
+		BankInfo verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, BankInfo.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<BankInfo> isUserPresent = bankrepo.findById(id);

@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.bridgelabz.lms.appconfiguration.AppConfig;
 import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
@@ -60,19 +61,17 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 	
 	@Override
 	public Response registerCandidate(String token,CandidateHiredDTO dto) {
-//		int Id = tokenutil.decodeToken(token);
-		
-		
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		HiringCandidate AddDetails = modelmapper.map(dto, HiringCandidate.class);
 		System.out.println(AddDetails);
 		candidaterrepo.save(AddDetails);
-		return new Response("Added candidate details: ", AddDetails,201,"true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("1"),AddDetails,201,"true");
+		
 		}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("101"),null,400,"true");
 		}
 			
 		}
@@ -89,12 +88,11 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
-		//int Id = tokenutil.decodeToken(token);
 		List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
-		return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("2"),isUserPresent,200,"true");
 		}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("102"),null,400,"true");
 		}
 	}
 	
@@ -108,16 +106,15 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 
 	@Override
 	public Response getCandidate(String token, Long id) {
-		// int Id = tokenutil.decodeToken(token);
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 				Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 				HiringCandidate candidates = isUserPresent.get();
-				return new Response("List of HiredCandidates are", isUserPresent, 200, "true");
+				return new Response(AppConfig.getMessageAccessor().getMessage("3"),isUserPresent,200,"true");
 			}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("103"),null,400,"true");
 		}
 	}
 		
@@ -171,13 +168,14 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 			//isUserPresent.get().setQualificationInfo(lmsCandidateHiring.getQualificationInfo());
 			System.out.println(isUserPresent);
 			candidaterrepo.save(isUserPresent.get());
-			return new Response("updating sucess", isUserPresent, 201, "true");
+			return new Response(AppConfig.getMessageAccessor().getMessage("4"),isUserPresent,200,"true");
 		} else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("104"),null,400,"true");
 		}
 		}else
 		{
-		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("104"),null,400,"true");
 	}
 	}
 	
@@ -192,7 +190,6 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
-		// int Id = tokenutil.decodeToken(token);
 		Optional<HiringCandidate> isUserPresent = candidaterrepo.findById(id);
 		if (isUserPresent.isPresent()) {
 			candidaterrepo.deleteById(id);
@@ -211,13 +208,13 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setStatus(keyText);
 			candidaterrepo.save(isUserPresent.get());
-			return new Response("Candidate status updated Successfully ", isUserPresent, 201, "true");
+			return new Response(AppConfig.getMessageAccessor().getMessage("5"),isUserPresent,200,"true");
 		}else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("105"),null,400,"true");
 		}
 		}else
 		{
-		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("105"),null,400,"true");
 	}
 	}
 	/**
@@ -231,23 +228,22 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
-		// int Id = tokenutil.decodeToken(token);
 				Optional<HiringCandidate> isUserPresent = candidaterrepo.findAllByemail(email);
 				boolean emailmatch = isUserPresent.get().getEmail().matches(email);
 				if (emailmatch == true) {
-					// String token = tokenutil.createToken(createUser.getId());
 					System.out.println(token);
 					String body = "This is a Candidate Job Offer Notification";
 					System.out.println(body);
 					jms.sendEmail(isUserPresent.get().getEmail(), "Job Offer", body);
-					return new Response("Successfully send notification ", isUserPresent, 201, "true");
+					return new Response(AppConfig.getMessageAccessor().getMessage("6"),isUserPresent,200,"true");
 				} 
 				else {
-					throw new CandidateRegistrationException("invalid details", null, 400, "true");
+					throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("106"),null,400,"true");
 				}
 				}else
 				{
-				throw new CandidateRegistrationException("invalid details", null, 400, "true");
+					throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("106"),null,400,"true");
+					
 			}
 			}
 
@@ -263,17 +259,16 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 		HiringCandidate verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, HiringCandidate.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
-		// int Id = tokenutil.decodeToken(token);
 				List<HiringCandidate> isUserPresent = candidaterrepo.findAll();
 				long count = 0;
 				for (Iterator iterator = isUserPresent.iterator(); iterator.hasNext();) {
 					HiringCandidate lmsHiring = (HiringCandidate) iterator.next();
 					count++;
 				}
-				return new Response("Number of Candidates : ", count,201,"true");
+				return new Response(AppConfig.getMessageAccessor().getMessage("7"),isUserPresent,200,"true");
 			}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("107"),null,400,"true");
 		}
 	}
 }

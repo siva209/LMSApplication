@@ -27,5 +27,11 @@ public class Response {
 		public Response(String string, Integer id) {
 			// TODO Auto-generated constructor stub
 		}
+		public Response(String message2) {
+			// TODO Auto-generated constructor stub
+		}
+		public Response(String message2, int i, String string) {
+			// TODO Auto-generated constructor stub
+		}
 }
 

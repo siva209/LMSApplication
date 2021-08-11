@@ -52,7 +52,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
   
 	@Override
 	public Response getAllOnBoardingcandidates(String token) {
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		//int Id = tokenutil.decodeToken(token);
@@ -89,7 +89,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	
 	@Override
 	public Response createUser(String token,CandidatEOnBoardingDTO dto) {
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		CandidateOnboardingDetails candidateDetails = modelmapper.map(dto, CandidateOnboardingDetails.class);
@@ -113,7 +113,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response updateOnBoardingCandidate(String token,Long id, CandidatEOnBoardUpdateDTO dto) {
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
@@ -149,7 +149,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	@Override
 	public void deleteOnBoardingCandidateById(String token,Long id) {
 		// int Id = tokenutil.decodeToken(token);	
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
@@ -170,7 +170,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response updateStatus(String token, Long id, String keyText) {
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
@@ -198,7 +198,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	public Response getCount(String token) {
 		// int Id = tokenutil.decodeToken(token);
 		
-		CandidateOnboardingDetails verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, CandidateOnboardingDetails.class);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		List<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findAll();

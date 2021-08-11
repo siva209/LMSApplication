@@ -43,7 +43,7 @@ public class StatusServiceImpl implements IStatusService {
 	
 	@Override
 	public Response addingStatusDetails(String token,StatusDTO dto) {
-		Status verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, Status.class);
+		Status verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, Status.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Status AddDetails = modelmapper.map(dto, Status.class);
@@ -57,7 +57,7 @@ public class StatusServiceImpl implements IStatusService {
 	}
 	@Override
 	public Response getAllStatus(String token) {
-		Status verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, Status.class);
+		Status verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, Status.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		List<Status> isPresent = statusrepo.findAll();
@@ -73,7 +73,7 @@ public class StatusServiceImpl implements IStatusService {
 	
 	@Override
 	public Response updateCandidateStatus(String token,Long id, String  keyText) {
-		Status verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, Status.class);
+		Status verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, Status.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<Status> isUserPresent = statusrepo.findById(id);
@@ -94,7 +94,7 @@ public class StatusServiceImpl implements IStatusService {
 
 	@Override
 	public void deleteCandidaStatusd(String token,Long id) {
-		Status verify = restTemplate.getForObject("http://localhost:8080/verifyemail/"+token, Status.class);
+		Status verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, Status.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
 		Optional<Status> isUserPresent = statusrepo.findById(id);
