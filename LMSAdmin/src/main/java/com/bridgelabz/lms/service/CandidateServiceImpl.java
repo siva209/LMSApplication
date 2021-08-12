@@ -15,6 +15,7 @@ import com.bridgelabz.lms.dto.CandidateHiredDTO;
 import com.bridgelabz.lms.dto.UpdateHiringDto;
 import com.bridgelabz.lms.exception.CandidateRegistrationException;
 import com.bridgelabz.lms.model.BankInfo;
+import com.bridgelabz.lms.model.CandidateOnboardingDetails;
 import com.bridgelabz.lms.model.HiringCandidate;
 import com.bridgelabz.lms.model.QualificationInfo;
 import com.bridgelabz.lms.model.Status;
@@ -265,16 +266,12 @@ public class CandidateServiceImpl implements ICandidateHiringService {
 					HiringCandidate lmsHiring = (HiringCandidate) iterator.next();
 					count++;
 				}
-				return new Response(AppConfig.getMessageAccessor().getMessage("7"),isUserPresent,200,"true");
+				return new Response(AppConfig.getMessageAccessor().getMessage("7"),count,200,"true");
 			}
 		else {
 			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("107"),null,400,"true");
 		}
 	}
 }
-
-
-
-
 
 
