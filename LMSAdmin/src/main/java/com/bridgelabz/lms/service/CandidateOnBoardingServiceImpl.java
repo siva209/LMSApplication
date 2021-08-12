@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.bridgelabz.lms.appconfiguration.AppConfig;
 import com.bridgelabz.lms.dto.CandidatEOnBoardUpdateDTO;
 import com.bridgelabz.lms.dto.CandidatEOnBoardingDTO;
 import com.bridgelabz.lms.dto.CandidateHiredDTO;
@@ -55,13 +56,12 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
-		//int Id = tokenutil.decodeToken(token);
 		List<CandidateOnboardingDetails> isPresent = candidateonboardrepo.findAll();
 		System.out.println(isPresent);
-		return new Response("List of Onboarding Candidates are",isPresent,200,"true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("8"),isPresent,200,"true");
 	}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("108"),null,400,"true");
 		}
 	}
 	
@@ -74,12 +74,17 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response getOnBoardCandidate(String token, Long id) {
-		// int Id = tokenutil.decodeToken(token);
+		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
+		System.out.println("Value="+verify);
+		if(verify != null) {
 		Optional<CandidateOnboardingDetails> isUserPresent = candidateonboardrepo.findById(id);
 		CandidateOnboardingDetails candidates = isUserPresent.get();
-		return new Response("List of OnBoarding Candidates are", isUserPresent, 200, "true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("9"),isUserPresent,200,"true");
 	}
-	
+		else {
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("109"),null,400,"true");
+		}
+	}
 
 	/**
 	 * Register User : used to register the user
@@ -95,10 +100,10 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 		CandidateOnboardingDetails candidateDetails = modelmapper.map(dto, CandidateOnboardingDetails.class);
 		System.out.println(candidateDetails);
 		candidateonboardrepo.save(candidateDetails);
-		return new Response("Added Status: ", candidateDetails,201,"true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("10"),candidateDetails,200,"true");
 	}
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("110"),null,400,"true");
 		}
 			
 		}
@@ -129,14 +134,14 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 			isUserPresent.get().setKnowledgeRemark(dto.getKnowledgeRemark());
 			System.out.println(isUserPresent);
 			candidateonboardrepo.save(isUserPresent.get());
-			return new Response("Updated OnBoarding Candidates  Successfully", isUserPresent, 201, "true");
+			return new Response(AppConfig.getMessageAccessor().getMessage("11"),isUserPresent,200,"true");
 		} 
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("111"),null,400,"true");
 		}
 		}else
 		{
-		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("111"),null,400,"true");
 	}
 	}
 	
@@ -147,8 +152,7 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 	 */
 
 	@Override
-	public void deleteOnBoardingCandidateById(String token,Long id) {
-		// int Id = tokenutil.decodeToken(token);	
+	public void deleteOnBoardingCandidateById(String token,Long id) {	
 		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
@@ -177,14 +181,14 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 		if (isUserPresent.isPresent()) {
 			isUserPresent.get().setStatus(keyText);
 			candidateonboardrepo.save(isUserPresent.get());
-			return new Response("Candidate status updated Successfully ", isUserPresent, 201, "true");
+			return new Response(AppConfig.getMessageAccessor().getMessage("12"),isUserPresent,200,"true");
 		} 
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("112"),null,400,"true");
 		}
 		}else
 		{
-		throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("112"),null,400,"true");
 	}
 	}
 
@@ -196,8 +200,6 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 
 	@Override
 	public Response getCount(String token) {
-		// int Id = tokenutil.decodeToken(token);
-		
 		CandidateOnboardingDetails verify = restTemplate.getForObject("http://UserRegistration/verifyemail/"+token, CandidateOnboardingDetails.class);
 		System.out.println("Value="+verify);
 		if(verify != null) {
@@ -207,11 +209,12 @@ public class CandidateOnBoardingServiceImpl implements ICandidateOnBoardingServi
 			CandidateOnboardingDetails lmsHiring = (CandidateOnboardingDetails) iterator.next();
 			count++;
 		}
-		return new Response("Number of Candidates : ", count,201,"true");
+		return new Response(AppConfig.getMessageAccessor().getMessage("13"),count,200,"true");
 	}
 
 		else {
-			throw new CandidateRegistrationException("invalid details", null, 400, "true");
+			throw new CandidateRegistrationException(AppConfig.getMessageAccessor().getMessage("113"),null,400,"true");
+			
 		}
 	}
 }
